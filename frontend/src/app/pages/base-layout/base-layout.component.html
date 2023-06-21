@@ -1,1 +1,60 @@
-<p>base-layout works!</p>
+<!-- <div class="relative">
+  <div class="shrink-0 lg:fixed top-0 left-0">
+    <app-sider [menu]="menu"></app-sider>
+  </div>
+  <div
+    class="basis-0 p-10 pt-5 ml-[270px]"
+    style="flex-grow: 999; min-inline-size: 50%"
+  >
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</div> -->
+<div class="flex flex-row h-screen w-screen">
+  <div class="hidden lg:block">
+    <app-sider [menu]="menu"></app-sider>
+  </div>
+  <div class="flex flex-col relative w-full">
+    <div class="justify-end pb-2">
+      <app-header></app-header>
+    </div>
+    <nz-layout class="h-screen flex-shrink overflow-y-scroll">
+      <nz-content>
+        <div class="flex flex-row justify-between">
+          <div class="hidden md:block">
+            <nz-breadcrumb class="pb-4">
+              <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+              <nz-breadcrumb-item>Orgnaisations</nz-breadcrumb-item>
+              <nz-breadcrumb-item>PEC</nz-breadcrumb-item>
+            </nz-breadcrumb>
+          </div>
+          <div class="mr-20 pb-4">
+            <!-- <app-domains></app-domains> -->
+          </div>
+          <div class="pb-8">
+            <!-- <input class="bg-[#49D9C8]" type="file" /> -->
+            <nz-upload
+              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            >
+              <button
+                nz-button
+                class="bg-[#49D9C8] rounded-xl text-black font-bold hover:bg-black hover:text-[#49D9C8] hover:border-[#49D9C8]"
+              >
+                <span
+                  nz-icon
+                  nzType="upload"
+                  class="flex justify-center items-center"
+                ></span>
+                <span>Upload</span>
+              </button>
+            </nz-upload>
+          </div>
+        </div>
+        <div class="inner-content min-h-max">
+          <div class="inner-content">
+            <router-outlet outlet="#outlet"></router-outlet>
+          </div>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </div>
+</div>

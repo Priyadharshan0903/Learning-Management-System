@@ -1,0 +1,31 @@
+<nz-header
+  class="flex flex-row justify-end gap-8 w-full bg-white top-0 sticky z-99"
+>
+  <div class="app-header shadow-none">
+    <span class="header-trigger">
+      <span
+        (click)="isCollapsed = !isCollapsed"
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+      ></span>
+      <a href="">
+        <span
+          class="px-10"
+          nz-icon
+          nzType="mail"
+          style="font-size: 23px"
+          nzTheme="outline"
+        ></span>
+      </a>
+      <span
+        routerLink="/login"
+        class="justify-end"
+        nz-icon
+        style="font-size: 23px"
+        nzType="user"
+        nzTheme="outline"
+      ></span>
+    </span>
+  </div>
+</nz-header>

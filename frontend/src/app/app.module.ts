@@ -14,6 +14,9 @@ import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NgZorroModule } from './NgZorro.module';
+import { ComponentsModule } from './components/components.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { PagesModule } from './pages/pages.module';
 
 registerLocaleData(en);
 
@@ -29,6 +32,9 @@ registerLocaleData(en);
     NzLayoutModule,
     NzMenuModule,
     NgZorroModule,
+    ComponentsModule,
+    AuthenticationModule,
+    PagesModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent],
