@@ -78,3 +78,9 @@ nz-content {
     background: #fff;
     height: fit-content;
 }
+.menu{
+    @apply w-[250px] bg-[#1E293B] h-screen flex flex-col justify-between;
+.logo {
+      @apply pb-6 flex flex-col items-center pt-4 font-bold border-b-2 border-b-slate-200/40;
+  }
+}

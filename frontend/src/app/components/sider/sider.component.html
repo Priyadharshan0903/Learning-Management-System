@@ -1,4 +1,4 @@
-<nz-layout class="app-layout h-screen bg-gray-200">
+<!-- <nz-layout class="app-layout h-screen bg-gray-200">
   <nz-sider
     class="menu bg-gray-100"
     nzCollapsible
@@ -20,8 +20,8 @@
     <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="Departments" nzIcon="dashboard">
         <ul class="sidebar-menu">
-          <!-- class="text-white hover:bg-black nz-menu-item" -->
-          <li nz-menu-item nzMatchRouter>
+           class="text-white hover:bg-black nz-menu-item" -->
+<!-- <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['./pec']">PEC</a>
             <ul class="sidebar-menu">
               <li nz-menu-item nzMatchRouter>Sem 1</li>
@@ -44,7 +44,7 @@
       </li>
     </ul>
   </nz-sider>
-</nz-layout>
+</nz-layout> -->
 <!-- <div>
   <div class="logo">
     <img src="assets/pec-logo.png" alt="logo " />
@@ -99,3 +99,93 @@
     </ng-container>
   </ul>
 </div> -->
+<!--########################################### /////////////////////////////////////////////// ############################################ -->
+
+<!-- <ul nz-menu nzMode="inline">
+  <li nz-submenu nzTitle="Departments" nzIcon="mail" nzOpen>
+    <ul>
+      <li nz-menu-group nzTitle="CSE">
+        <ul>
+          <li nz-menu-item nzSelected>Semester 1</li>
+          <li nz-menu-item>Semester 2</li>
+          <li nz-menu-item>Semester 3</li>
+          <li nz-menu-item>Semester 4</li>
+          <li nz-menu-item>Semester 5</li>
+          <li nz-menu-item>Semester 6</li>
+          <li nz-menu-item>Semester 7</li>
+          <li nz-menu-item>Semester 8</li>
+        </ul>
+      </li>
+      <li nz-menu-group nzTitle="ECE">
+        <ul>
+          <li nz-menu-item>Semester 1</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
+    <ul>
+      <li nz-menu-item>Option 5</li>
+      <li nz-menu-item>Option 6</li>
+      <li nz-submenu nzTitle="Submenu">
+        <ul>
+          <li nz-menu-item>Option 7</li>
+          <li nz-menu-item>Option 8</li>
+          <li nz-submenu nzTitle="Submenu">
+            <ul>
+              <li nz-menu-item>Option 9</li>
+              <li nz-menu-item>Option 10</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li nz-submenu nzTitle="Navigation Three" nzIcon="setting">
+    <ul>
+      <li nz-menu-item>Option 11</li>
+      <li nz-menu-item>Option 12</li>
+      <li nz-menu-item>Option 13</li>
+    </ul>
+  </li>
+</ul> -->
+
+<ul nz-menu nzMode="inline" style="width: 240px">
+  <ng-container
+    *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"
+  ></ng-container>
+  <ng-template #menuTpl let-menus>
+    <ng-container *ngFor="let menu of menus">
+      <li
+        *ngIf="!menu.children"
+        nz-menu-item
+        [nzPaddingLeft]="menu.level * 24"
+        [nzDisabled]="menu.disabled"
+        [nzSelected]="menu.selected"
+      >
+        <span
+          nz-icon
+          [nzType]="menu.icon"
+          [nzTheme]="menu.theme"
+          *ngIf="menu.icon"
+        ></span>
+        <span>{{ menu.title }}</span>
+      </li>
+      <li
+        *ngIf="menu.children"
+        nz-submenu
+        [nzPaddingLeft]="menu.level * 24"
+        [nzOpen]="menu.open"
+        [nzTitle]="menu.title"
+        [nzIcon]="menu.icon"
+        [nzDisabled]="menu.disabled"
+      >
+        <ul>
+          <ng-container
+            *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"
+          ></ng-container>
+        </ul>
+      </li>
+    </ng-container>
+  </ng-template>
+</ul>
