@@ -14,16 +14,16 @@
       class="menu-logo bg-gray-500 flex flex-row items-center gap-4 py-2"
       [nzInlineCollapsed]="isCollapsed"
     >
-      <!-- <img src="../assets/pk logo 1.jpg" alt="logo" /> -->
-      <h1 class="text-md text-white py-[20px] font-bold cursor-pointer">
+      img src="../assets/pk logo 1.jpg" alt="logo" /> -->
+<!-- <h1 class="text-md text-white py-[20px] font-bold cursor-pointer">
         Panimalar Engineering College
       </h1>
-    </div>
-    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Departments" nzIcon="dashboard">
-        <ul class="sidebar-menu">
-           class="text-white hover:bg-black nz-menu-item" -->
-<!-- <li nz-menu-item nzMatchRouter>
+    </div> -->
+<ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+  <li nz-submenu nzOpen nzTitle="Departments" nzIcon="dashboard">
+    <!-- <ul class="sidebar-menu">
+      class="text-white hover:bg-black nz-menu-item"  -->
+    <!-- <li nz-menu-item nzMatchRouter>
             <a [routerLink]="['./pec']">PEC</a>
             <ul class="sidebar-menu">
               <li nz-menu-item nzMatchRouter>Sem 1</li>
@@ -47,7 +47,7 @@
     </ul>
   </nz-sider>
 </nz-layout> -->
-<!-- <div>
+    <!-- <div>
   <div class="logo">
     <img src="assets/pec-logo.png" alt="logo " />
   </div>
@@ -101,9 +101,9 @@
     </ng-container>
   </ul>
 </div> -->
-<!--########################################### /////////////////////////////////////////////// ############################################ -->
+    <!--########################################### /////////////////////////////////////////////// ############################################ -->
 
-<!-- <ul nz-menu nzMode="inline">
+    <!-- <ul nz-menu nzMode="inline">
   <li nz-submenu nzTitle="Departments" nzIcon="mail" nzOpen>
     <ul>
       <li nz-menu-group nzTitle="CSE">
@@ -152,42 +152,50 @@
   </li>
 </ul> -->
 
-<ul nz-menu nzMode="inline" style="width: 240px">
-  <ng-container
-    *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"
-  ></ng-container>
-  <ng-template #menuTpl let-menus>
-    <ng-container *ngFor="let menu of menus">
-      <li
-        *ngIf="!menu.children"
-        nz-menu-item
-        [nzPaddingLeft]="menu.level * 24"
-        [nzDisabled]="menu.disabled"
-        [nzSelected]="menu.selected"
-      >
-        <span
-          nz-icon
-          [nzType]="menu.icon"
-          [nzTheme]="menu.theme"
-          *ngIf="menu.icon"
-        ></span>
-        <span>{{ menu.title }}</span>
-      </li>
-      <li
-        *ngIf="menu.children"
-        nz-submenu
-        [nzPaddingLeft]="menu.level * 24"
-        [nzOpen]="menu.open"
-        [nzTitle]="menu.title"
-        [nzIcon]="menu.icon"
-        [nzDisabled]="menu.disabled"
-      >
-        <ul>
-          <ng-container
-            *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"
-          ></ng-container>
-        </ul>
-      </li>
-    </ng-container>
-  </ng-template>
+    <ul nz-menu nzMode="inline" style="width: 240px">
+      <ng-container
+        *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"
+      ></ng-container>
+      <ng-template #menuTpl let-menus>
+        <ng-container *ngFor="let menu of menus">
+          <li
+            *ngIf="!menu.children"
+            nz-menu-item
+            [nzPaddingLeft]="menu.level * 24"
+            [nzDisabled]="menu.disabled"
+            [nzSelected]="menu.selected"
+          >
+            <span
+              nz-icon
+              [nzType]="menu.icon"
+              [nzTheme]="menu.theme"
+              *ngIf="menu.icon"
+            ></span>
+            <span>{{ menu.title }}</span>
+          </li>
+          <li
+            *ngIf="menu.children"
+            nz-submenu
+            [nzPaddingLeft]="menu.level * 24"
+            [nzOpen]="menu.open"
+            [nzTitle]="menu.title"
+            [nzIcon]="menu.icon"
+            [nzDisabled]="menu.disabled"
+          >
+            <ul>
+              <ng-container
+                *ngTemplateOutlet="
+                  menuTpl;
+                  context: { $implicit: menu.children }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </li>
 </ul>
+
+<!-- </li>
+</ul> -->
