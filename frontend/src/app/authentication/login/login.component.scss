@@ -1,0 +1,16 @@
+.login-form {
+    max-width: 370px;
+    @apply flex flex-col m-auto border-2 border-gray-100 border-t-0 py-10 px-10 z-50;
+}
+
+.login-form-margin {
+    margin-bottom: 16px;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.login-form-button {
+    width: 100%;
+}

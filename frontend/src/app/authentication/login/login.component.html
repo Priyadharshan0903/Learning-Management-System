@@ -1,1 +1,64 @@
-<p>login works!</p>
+<div class="flex flex-col justify-start items-center mt-[10em]">
+  <div
+    class="flex justify-between items-center px-[12px] mt-8 border-2 border-gray-200 border-b-0 w-[325px] gap-[-10px] text-black p-2"
+  >
+    <img src="../../../assets/pk logo 1.jpg" alt="pk-logo" class="pl-[20px]" />
+    <span class="text-3xl font-bold pt-3">Pk Innovatives</span>
+  </div>
+  <div>
+    <form
+      nz-form
+      [formGroup]="validateForm"
+      class="login-form"
+      (ngSubmit)="submitForm()"
+    >
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your email!">
+          <div class="pb-2">Email</div>
+          <nz-input-group nzPrefixIcon="user">
+            <input
+              type="text"
+              nz-input
+              formControlName="email"
+              placeholder="Email"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <div class="py-2">Password</div>
+          <nz-input-group nzPrefixIcon="lock">
+            <input
+              type="password"
+              nz-input
+              formControlName="password"
+              placeholder="Password"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-row class="login-form-margin">
+        <div nz-col [nzSpan]="12">
+          <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+          </label>
+        </div>
+        <div nz-col [nzSpan]="12">
+          <a class="login-form-forgot">Forgot password?</a>
+        </div>
+      </div>
+      <button
+        nz-button
+        class="login-form-button login-form-margin"
+        [nzType]="'primary'"
+      >
+        Log in
+      </button>
+      <div class="flex flex-row gap-4">
+        Or
+        <a class="text-sky-500" [routerLink]="['/register']">register now!</a>
+      </div>
+    </form>
+  </div>
+</div>
