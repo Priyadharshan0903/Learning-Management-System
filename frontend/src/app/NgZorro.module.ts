@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
@@ -56,6 +57,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzSpinModule,
     NzDropDownModule,
     NzDividerModule,
+    NzSwitchModule,
   ],
 })
 export class NgZorroModule {}

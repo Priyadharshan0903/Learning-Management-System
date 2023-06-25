@@ -11,6 +11,8 @@ export class SiderComponent implements OnInit {
   menu: Menu[] = [];
 
   isCollapsed = true;
+  mode = false;
+  dark = false;
 
   constructor() {}
 
@@ -26,8 +28,6 @@ export class SiderComponent implements OnInit {
   //   else this.dropdown.isOpen = true;
   //   this.dropdown.id = id;
   // }
-  mode = false;
-  dark = true;
   menus = [
     {
       level: 1,

@@ -1,157 +1,5 @@
-<!-- <nz-layout class="app-layout h-screen bg-gray-200">
-  <nz-sider
-    class="menu bg-gray-100"
-    nzCollapsible
-    nzWidth="256px"
-    nzBreakpoint="md"
-    [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null"
-  >
-    <div
-      [routerLink]="['./']"
-      nz-menu
-      nzMode="inline"
-      class="menu-logo bg-gray-500 flex flex-row items-center gap-4 py-2"
-      [nzInlineCollapsed]="isCollapsed"
-    >
-      img src="../assets/pk logo 1.jpg" alt="logo" /> -->
-<!-- <h1 class="text-md text-white py-[20px] font-bold cursor-pointer">
-        Panimalar Engineering College
-      </h1>
-    </div> -->
-<ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+<!-- <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed">
   <li nz-submenu nzOpen nzTitle="Departments" nzIcon="dashboard">
-    <!-- <ul class="sidebar-menu">
-      class="text-white hover:bg-black nz-menu-item"  -->
-    <!-- <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['./pec']">PEC</a>
-            <ul class="sidebar-menu">
-              <li nz-menu-item nzMatchRouter>Sem 1</li>
-            </ul>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['./msec']">MSEC</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['./srem']">SRM RMP</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Student Database" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['./StudentDatabase']">Student Database 1</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </nz-sider>
-</nz-layout> -->
-    <!-- <div>
-  <div class="logo">
-    <img src="assets/pec-logo.png" alt="logo " />
-  </div>
-  <ul>
-    <ng-container *ngFor="let m of menu; let id = index">
-      <li
-        class="menu-item"
-        *ngIf="!m.children"
-        [routerLink]="m.path"
-        routerLinkActive="bg-[#334155]"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <span
-          nz-icon
-          [nzType]="m.icon"
-          nzTheme="outline"
-          class="text-sky-500"
-        ></span>
-        <span>{{ m.title }}</span>
-      </li>
-      <li class="smenu-item" (click)="toggle(id)" *ngIf="m.children">
-        <div>
-          <div>
-            <span nz-icon [nzType]="m.icon" nzTheme="outline"></span>
-            <span>{{ m.title }}</span>
-          </div>
-          <span
-            nz-icon
-            [nzType]="dropdown.isOpen && dropdown.id === id ? 'up' : 'down'"
-            nzTheme="outline"
-            *ngIf="m.children"
-          ></span>
-        </div>
-      </li>
-      <div
-        class="sub-item-container"
-        *ngIf="dropdown.isOpen && dropdown.id === id"
-        @slide
-      >
-        <div
-          *ngFor="let cm of m.children"
-          class="sub-items"
-          [routerLink]="cm.path"
-          routerLinkActive="bg-[#334155]"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <span nz-icon [nzType]="cm.icon" nzTheme="outline"></span>
-          <span>{{ cm.title }}</span>
-        </div>
-      </div>
-    </ng-container>
-  </ul>
-</div> -->
-    <!--########################################### /////////////////////////////////////////////// ############################################ -->
-
-    <!-- <ul nz-menu nzMode="inline">
-  <li nz-submenu nzTitle="Departments" nzIcon="mail" nzOpen>
-    <ul>
-      <li nz-menu-group nzTitle="CSE">
-        <ul>
-          <li nz-menu-item nzSelected>Semester 1</li>
-          <li nz-menu-item>Semester 2</li>
-          <li nz-menu-item>Semester 3</li>
-          <li nz-menu-item>Semester 4</li>
-          <li nz-menu-item>Semester 5</li>
-          <li nz-menu-item>Semester 6</li>
-          <li nz-menu-item>Semester 7</li>
-          <li nz-menu-item>Semester 8</li>
-        </ul>
-      </li>
-      <li nz-menu-group nzTitle="ECE">
-        <ul>
-          <li nz-menu-item>Semester 1</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li nz-submenu nzTitle="Navigation Two" nzIcon="appstore">
-    <ul>
-      <li nz-menu-item>Option 5</li>
-      <li nz-menu-item>Option 6</li>
-      <li nz-submenu nzTitle="Submenu">
-        <ul>
-          <li nz-menu-item>Option 7</li>
-          <li nz-menu-item>Option 8</li>
-          <li nz-submenu nzTitle="Submenu">
-            <ul>
-              <li nz-menu-item>Option 9</li>
-              <li nz-menu-item>Option 10</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li nz-submenu nzTitle="Navigation Three" nzIcon="setting">
-    <ul>
-      <li nz-menu-item>Option 11</li>
-      <li nz-menu-item>Option 12</li>
-      <li nz-menu-item>Option 13</li>
-    </ul>
-  </li>
-</ul> -->
-
     <ul nz-menu nzMode="inline" style="width: 240px">
       <ng-container
         *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"
@@ -195,7 +43,70 @@
       </ng-template>
     </ul>
   </li>
-</ul>
-
-<!-- </li>
 </ul> -->
+<ul
+  nz-menu
+  [nzMode]="mode ? 'vertical' : 'inline'"
+  [nzTheme]="dark ? 'dark' : 'light'"
+>
+  <li nz-submenu nzTitle="Admin Dashboard" nzIcon="Dashboard"></li>
+  <li nz-submenu nzTitle="Departments" nzIcon="appstore">
+    <ul>
+      <li nz-submenu nzTitle="Computer Science Engineering">
+        <ul>
+          <li nz-menu-item>Semester 1</li>
+          <li nz-menu-item>Semester 2</li>
+          <li nz-menu-item>Semester 3</li>
+          <li nz-menu-item>Semester 4</li>
+          <li nz-menu-item>Semester 5</li>
+          <li nz-menu-item>Semester 6</li>
+          <li nz-menu-item>Semester 7</li>
+          <li nz-menu-item>Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="EEE">
+        <ul>
+          <li nz-menu-item>Semester 1</li>
+          <li nz-menu-item>Semester 2</li>
+          <li nz-menu-item>Semester 3</li>
+          <li nz-menu-item>Semester 4</li>
+          <li nz-menu-item>Semester 5</li>
+          <li nz-menu-item>Semester 6</li>
+          <li nz-menu-item>Semester 7</li>
+          <li nz-menu-item>Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Mechanical">
+        <ul>
+          <li nz-menu-item>Semester 1</li>
+          <li nz-menu-item>Semester 2</li>
+          <li nz-menu-item>Semester 3</li>
+          <li nz-menu-item>Semester 4</li>
+          <li nz-menu-item>Semester 5</li>
+          <li nz-menu-item>Semester 6</li>
+          <li nz-menu-item>Semester 7</li>
+          <li nz-menu-item>Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="ECE">
+        <ul>
+          <li nz-menu-item>Semester 1</li>
+          <li nz-menu-item>Semester 2</li>
+          <li nz-menu-item>Semester 3</li>
+          <li nz-menu-item>Semester 4</li>
+          <li nz-menu-item>Semester 5</li>
+          <li nz-menu-item>Semester 6</li>
+          <li nz-menu-item>Semester 7</li>
+          <li nz-menu-item>Semester 8</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li nz-submenu nzTitle="Notes Manager" nzIcon="setting">
+    <ul>
+      <li nz-menu-item>Option 9</li>
+      <li nz-menu-item>Option 10</li>
+      <li nz-menu-item>Option 11</li>
+    </ul>
+  </li>
+</ul>

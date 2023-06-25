@@ -6,7 +6,13 @@ import {
   MenuUnfoldOutline,
   FormOutline,
   DashboardOutline,
-  MailTwoTone,
+  MailOutline,
+  UserOutline,
+  PieChartFill,
+  AppstoreFill,
+  AppstoreAddOutline,
+  SettingFill,
+  DashboardFill,
 } from '@ant-design/icons-angular/icons';
 
 const icons = [
@@ -14,7 +20,13 @@ const icons = [
   MenuUnfoldOutline,
   DashboardOutline,
   FormOutline,
-  MailTwoTone,
+  MailOutline,
+  UserOutline,
+  PieChartFill,
+  AppstoreFill,
+  AppstoreAddOutline,
+  SettingFill,
+  DashboardFill,
 ];
 
 @NgModule({
