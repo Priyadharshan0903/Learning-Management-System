@@ -4,9 +4,11 @@ import { SiderComponent } from './sider/sider.component';
 import { NgZorroModule } from '../NgZorro.module';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
+import { NotesManagerComponent } from './notes-manager/notes-manager.component';
+import { DepartmentComponent } from './department/department.component';
 
 @NgModule({
-  declarations: [SiderComponent, HeaderComponent],
+  declarations: [SiderComponent, HeaderComponent, NotesManagerComponent, DepartmentComponent],
   imports: [CommonModule, NgZorroModule, RouterModule],
   exports: [SiderComponent, HeaderComponent],
 })

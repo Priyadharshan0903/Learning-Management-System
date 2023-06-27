@@ -49,64 +49,80 @@
   [nzMode]="mode ? 'vertical' : 'inline'"
   [nzTheme]="dark ? 'dark' : 'light'"
 >
-  <li nz-submenu nzTitle="Admin Dashboard" nzIcon="Dashboard"></li>
-  <li nz-submenu nzTitle="Departments" nzIcon="appstore">
-    <ul>
-      <li nz-submenu nzTitle="Computer Science Engineering">
+  <li
+    *ngIf="notesManager"
+    class="font-semibold text-lg"
+    nz-submenu
+    nzTitle="Admin Dashboard"
+    nzIcon="Dashboard"
+  ></li>
+  <li
+    nz-submenu
+    nzTitle="Departments"
+    class="font-semibold text-lg"
+    nzIcon="appstore"
+  >
+    <ul class="font-normal text-md">
+      <li
+        nz-submenu
+        nzTitle="Computer Science Engineering"
+        [routerLink]="['./CSE']"
+      >
         <ul>
-          <li nz-menu-item>Semester 1</li>
-          <li nz-menu-item>Semester 2</li>
-          <li nz-menu-item>Semester 3</li>
-          <li nz-menu-item>Semester 4</li>
-          <li nz-menu-item>Semester 5</li>
-          <li nz-menu-item>Semester 6</li>
-          <li nz-menu-item>Semester 7</li>
-          <li nz-menu-item>Semester 8</li>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="EEE">
         <ul>
-          <li nz-menu-item>Semester 1</li>
-          <li nz-menu-item>Semester 2</li>
-          <li nz-menu-item>Semester 3</li>
-          <li nz-menu-item>Semester 4</li>
-          <li nz-menu-item>Semester 5</li>
-          <li nz-menu-item>Semester 6</li>
-          <li nz-menu-item>Semester 7</li>
-          <li nz-menu-item>Semester 8</li>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="Mechanical">
         <ul>
-          <li nz-menu-item>Semester 1</li>
-          <li nz-menu-item>Semester 2</li>
-          <li nz-menu-item>Semester 3</li>
-          <li nz-menu-item>Semester 4</li>
-          <li nz-menu-item>Semester 5</li>
-          <li nz-menu-item>Semester 6</li>
-          <li nz-menu-item>Semester 7</li>
-          <li nz-menu-item>Semester 8</li>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
       <li nz-submenu nzTitle="ECE">
         <ul>
-          <li nz-menu-item>Semester 1</li>
-          <li nz-menu-item>Semester 2</li>
-          <li nz-menu-item>Semester 3</li>
-          <li nz-menu-item>Semester 4</li>
-          <li nz-menu-item>Semester 5</li>
-          <li nz-menu-item>Semester 6</li>
-          <li nz-menu-item>Semester 7</li>
-          <li nz-menu-item>Semester 8</li>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
     </ul>
   </li>
-  <li nz-submenu nzTitle="Notes Manager" nzIcon="setting">
-    <ul>
-      <li nz-menu-item>Option 9</li>
-      <li nz-menu-item>Option 10</li>
-      <li nz-menu-item>Option 11</li>
-    </ul>
-  </li>
+  <li
+    *ngIf="notesManager"
+    class="font-semibold text-lg"
+    nz-submenu
+    nzTitle="Notes Manager"
+    nzIcon="setting"
+    [routerLink]="['./notes']"
+  ></li>
 </ul>

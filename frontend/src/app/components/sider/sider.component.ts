@@ -13,7 +13,7 @@ export class SiderComponent implements OnInit {
   isCollapsed = true;
   mode = false;
   dark = false;
-
+  user = JSON.parse(String(localStorage.getItem('user')));
   constructor() {}
 
   // dropdown: { id: any; isOpen: boolean } = {
@@ -21,7 +21,16 @@ export class SiderComponent implements OnInit {
   //   isOpen: false,
   // };
 
-  ngOnInit(): void {}
+  notesManager = false;
+  ngOnInit(): void {
+    if (this.user.role === 'STUDENT') {
+      this.notesManager = false;
+      this.isCollapsed = false;
+    }
+    if (this.user.role === 'ADMIN') {
+      this.notesManager = true;
+    }
+  }
 
   // toggle(id: any) {
   //   if (id === this.dropdown.id) this.dropdown.isOpen = !this.dropdown.isOpen;

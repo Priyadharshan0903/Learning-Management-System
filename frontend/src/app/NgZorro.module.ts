@@ -27,7 +27,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 @NgModule({
   exports: [
     NzIconModule,
@@ -58,6 +58,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzDropDownModule,
     NzDividerModule,
     NzSwitchModule,
+    NzSkeletonModule,
   ],
 })
 export class NgZorroModule {}
