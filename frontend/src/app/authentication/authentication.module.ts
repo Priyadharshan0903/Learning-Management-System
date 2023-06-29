@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './login/login.component';
 import { NgZorroModule } from '../NgZorro.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthenticationRoutingModule,
     NgZorroModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
 })
 export class AuthenticationModule {}

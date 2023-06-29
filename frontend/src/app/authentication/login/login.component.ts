@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+
+import { IconType } from 'antd/es/notification/interface';
+
+// import { Input } from 'antd';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +14,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  validateForm!: UntypedFormGroup;
+  validateForm!: FormGroup;
+
+  passwordVisible = false;
+  password?: string;
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute

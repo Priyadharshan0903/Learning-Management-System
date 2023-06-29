@@ -3,12 +3,6 @@
 >
   <div class="app-header shadow-none">
     <span class="header-trigger">
-      <!-- <span
-            (click)="isCollapsed = !isCollapsed"
-            class="trigger"
-            nz-icon
-            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          ></span> -->
       <a href="">
         <span
           class="px-10"
@@ -19,13 +13,52 @@
         ></span>
       </a>
       <span
-        routerLink="/login"
+        (click)="showModal()"
         class="justify-end"
         nz-icon
         style="font-size: 23px"
         nzType="user"
         nzTheme="outline"
-      ></span>
+      >
+      </span>
     </span>
   </div>
+  <!-- <button nz-button nzType="primary" (click)="showModal()">
+    <span>Show Modal</span>
+  </button> -->
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()"
+  >
+    <ng-template #modalTitle class="text-xl font-bold"
+      >User Crendentials
+    </ng-template>
+
+    <ng-template #modalContent>
+      <p class="text-md font-semibold">
+        USERNAME : <span class="font-normal">{{ userName }}</span>
+      </p>
+      <p class="text-md font-semibold">
+        EMAIL : <span class="font-normal">{{ email }}</span>
+      </p>
+      <p class="text-md font-semibold">
+        ROLE : <span class="font-normal">{{ role }}</span>
+      </p>
+    </ng-template>
+
+    <ng-template #modalFooter>
+      <button
+        nz-button
+        nzType="primary"
+        [routerLink]="['./login']"
+        (click)="handleOk()"
+        [nzLoading]="isConfirmLoading"
+      >
+        Log Out
+      </button>
+    </ng-template>
+  </nz-modal>
 </nz-header>

@@ -86,7 +86,7 @@ export class UserController {
   }
 
   post(req: Request, res: Response) {
-    const { name, email, password } = req.body;
+    const { name, email, password, department } = req.body;
     // TODO: Validate fields before creating user
     this.userService
       .find({ where: { email } })
@@ -98,7 +98,7 @@ export class UserController {
             let newUser = new Users({
               name,
               email,
-              department: "CSE",
+              department,
               password: hashPassword,
               role: "STUDENT",
             });

@@ -38,6 +38,10 @@ Users.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    department: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,

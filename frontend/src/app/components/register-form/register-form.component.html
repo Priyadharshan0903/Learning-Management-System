@@ -1,0 +1,91 @@
+<div class="flex flex-col justify-start items-center mt-[10em]">
+  <form
+    nz-form
+    [formGroup]="validateForm"
+    class="login-form shadow-xl shadow-blue-950"
+    (ngSubmit)="submitForm()"
+  >
+    <h1 class="text-xl font-bold ml-20">Register to continue ...</h1>
+    <br />
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your name!">
+        <div class="pb-2">Name</div>
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            type="text"
+            nz-input
+            formControlName="name"
+            placeholder="Name"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your email!">
+        <div class="pb-2">Email</div>
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            type="text"
+            nz-input
+            formControlName="email"
+            placeholder="Email"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Password!">
+        <div class="py-2">Password</div>
+        <nz-input-group>
+          <input type="password" nz-input placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- <p>Please select your college</p>
+    <br />
+    <nz-select
+      [(ngModel)]="selectedClg"
+      [compareWith]="compareFn"
+      (ngModelChange)="log($event)"
+      nzAllowClear
+      nzPlaceHolder="Choose"
+    >
+      <nz-option
+        *ngFor="let college of collegeList"
+        [nzValue]="college"
+        [nzLabel]="college.label"
+      ></nz-option>
+    </nz-select>
+    <p>Please select your department</p>
+    <br />
+    <nz-select
+      [(ngModel)]="selectedValue"
+      [compareWith]="compareFn"
+      (ngModelChange)="log($event)"
+      nzAllowClear
+      nzPlaceHolder="Choose"
+    >
+      <nz-option
+        *ngFor="let option of optionList"
+        [nzValue]="option"
+        [nzLabel]="option.label"
+      ></nz-option>
+    </nz-select>
+    <br /> -->
+    <button
+      nz-button
+      class="login-form-button login-form-margin"
+      [nzType]="'primary'"
+    >
+      Register now !
+    </button>
+    <button
+      nz-button
+      class="login-form-button login-form-margin"
+      [nzType]="'default'"
+      [routerLink]="['/login']"
+    >
+      Already have an account !
+    </button>
+  </form>
+</div>

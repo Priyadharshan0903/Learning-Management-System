@@ -33,11 +33,12 @@ Users.sync().then(() => {
     .find({ where: { role: "ADMIN" } })
     .then((user: any) => {
       if (!user) {
-        bcrypt.hash("adminstaff", 10).then((hashPassword: string) => {
+        bcrypt.hash("admin", 10).then((hashPassword: string) => {
           let newUser = new Users({
-            name: "Adminstaff",
-            email: "adminstaff@gmail.com",
+            name: "Admin",
+            email: "admin@local.com",
             password: hashPassword,
+            department: "ADMIN",
             role: "ADMIN",
           });
           new UserService(Users).create(newUser);

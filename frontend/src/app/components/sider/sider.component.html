@@ -48,13 +48,14 @@
   nz-menu
   [nzMode]="mode ? 'vertical' : 'inline'"
   [nzTheme]="dark ? 'dark' : 'light'"
+  class="mt-10"
 >
   <li
     *ngIf="notesManager"
-    class="font-semibold text-lg"
     nz-submenu
     nzTitle="Admin Dashboard"
     nzIcon="Dashboard"
+    ngClass="font-semibold text-lg "
   ></li>
   <li
     nz-submenu

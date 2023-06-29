@@ -6,10 +6,24 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { NotesManagerComponent } from './notes-manager/notes-manager.component';
 import { DepartmentComponent } from './department/department.component';
-
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [SiderComponent, HeaderComponent, NotesManagerComponent, DepartmentComponent],
-  imports: [CommonModule, NgZorroModule, RouterModule],
+  declarations: [
+    SiderComponent,
+    HeaderComponent,
+    NotesManagerComponent,
+    DepartmentComponent,
+    RegisterFormComponent,
+  ],
+  imports: [
+    CommonModule,
+    NgZorroModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   exports: [SiderComponent, HeaderComponent],
 })
 export class ComponentsModule {}
