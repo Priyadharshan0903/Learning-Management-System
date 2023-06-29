@@ -68,6 +68,7 @@
         nz-submenu
         nzTitle="Computer Science Engineering"
         [routerLink]="['./CSE']"
+        *ngIf="department === 'CSE'"
       >
         <ul>
           <li nz-menu-item id="1">Semester 1</li>
@@ -80,7 +81,7 @@
           <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="EEE">
+      <li nz-submenu nzTitle="EEE" *ngIf="department === 'EEE'">
         <ul>
           <li nz-menu-item id="1">Semester 1</li>
           <li nz-menu-item id="2">Semester 2</li>
@@ -92,7 +93,7 @@
           <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="Mechanical">
+      <li nz-submenu nzTitle="Mechanical" *ngIf="department === 'MECH'">
         <ul>
           <li nz-menu-item id="1">Semester 1</li>
           <li nz-menu-item id="2">Semester 2</li>
@@ -104,7 +105,86 @@
           <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
-      <li nz-submenu nzTitle="ECE">
+      <li nz-submenu nzTitle="ECE" *ngIf="department === 'ECE'">
+        <ul>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="IT" *ngIf="department === 'IT'">
+        <ul>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="font-normal text-md">
+      <li
+        nz-submenu
+        nzTitle="Computer Science Engineering"
+        [routerLink]="['./CSE']"
+        *ngIf="department === 'ADMIN'"
+      >
+        <ul>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="EEE" *ngIf="department === 'ADMIN'">
+        <ul>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="Mechanical" *ngIf="department === 'ADMIN'">
+        <ul>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="ECE" *ngIf="department === 'ADMIN'">
+        <ul>
+          <li nz-menu-item id="1">Semester 1</li>
+          <li nz-menu-item id="2">Semester 2</li>
+          <li nz-menu-item id="3">Semester 3</li>
+          <li nz-menu-item id="4">Semester 4</li>
+          <li nz-menu-item id="5">Semester 5</li>
+          <li nz-menu-item id="6">Semester 6</li>
+          <li nz-menu-item id="7">Semester 7</li>
+          <li nz-menu-item id="8">Semester 8</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="IT" *ngIf="department === 'ADMIN'">
         <ul>
           <li nz-menu-item id="1">Semester 1</li>
           <li nz-menu-item id="2">Semester 2</li>

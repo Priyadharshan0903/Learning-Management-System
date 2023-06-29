@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   email!: String;
   user!: any;
   router: any;
+  department!: String;
   constructor() {}
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
     this.userName = this.user.name;
     this.role = this.user.role;
     this.email = this.user.email;
+    this.department = this.user.department;
   }
 
   showModal(): void {

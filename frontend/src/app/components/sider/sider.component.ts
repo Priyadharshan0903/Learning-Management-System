@@ -14,6 +14,7 @@ export class SiderComponent implements OnInit {
   mode = false;
   dark = false;
   user = JSON.parse(String(localStorage.getItem('user')));
+  department = this.user.department;
   constructor() {}
 
   // dropdown: { id: any; isOpen: boolean } = {
@@ -28,6 +29,9 @@ export class SiderComponent implements OnInit {
       this.isCollapsed = false;
     }
     if (this.user.role === 'ADMIN') {
+      this.notesManager = true;
+    }
+    if (this.user.role === 'STAFF') {
       this.notesManager = true;
     }
   }
