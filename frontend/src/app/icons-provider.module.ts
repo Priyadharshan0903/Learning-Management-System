@@ -13,6 +13,7 @@ import {
   AppstoreAddOutline,
   SettingFill,
   DashboardFill,
+  BuildFill,
 } from '@ant-design/icons-angular/icons';
 
 const icons = [
@@ -27,6 +28,7 @@ const icons = [
   AppstoreAddOutline,
   SettingFill,
   DashboardFill,
+  BuildFill,
 ];
 
 @NgModule({

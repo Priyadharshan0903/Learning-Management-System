@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
-import { IconType } from 'antd/es/notification/interface';
-
 // import { Input } from 'antd';
 
 @Component({
@@ -15,9 +13,8 @@ import { IconType } from 'antd/es/notification/interface';
 })
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
-
-  passwordVisible = false;
-  password?: string;
+  password: any;
+  passwordVisible: any;
 
   constructor(
     private fb: FormBuilder,

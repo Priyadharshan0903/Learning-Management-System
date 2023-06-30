@@ -1,11 +1,16 @@
 <div class="flex flex-col justify-start items-center mt-[10em]">
+  <div
+    class="flex justify-between items-center px-[12px] mt-8 border-2 border-gray-200 border-b-0 w-[400px] gap-[-10px] text-black p-2 bg-blue-950"
+  >
+    <img src="../../../assets/pec-logo.png" alt="pk-logo" class="pl-[20px]" />
+  </div>
   <form
     nz-form
     [formGroup]="validateForm"
     class="login-form shadow-xl shadow-blue-950"
     (ngSubmit)="submitForm()"
   >
-    <h1 class="text-xl font-bold ml-20">Register to continue ...</h1>
+    <h1 class="text-xl font-bold ml-12">Register to continue ...</h1>
     <br />
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your name!">
@@ -23,7 +28,7 @@
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your email!">
         <div class="pb-2">Email</div>
-        <nz-input-group nzPrefixIcon="user">
+        <nz-input-group nzPrefixIcon="mail">
           <input
             type="text"
             nz-input
@@ -34,11 +39,28 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!">
-        <div class="py-2">Password</div>
-        <nz-input-group>
-          <input type="password" nz-input placeholder="Password" />
-        </nz-input-group>
+      <nz-form-control>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <div class="py-2">Password</div>
+            <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+              <input
+                [type]="passwordVisible ? 'text' : 'password'"
+                nz-input
+                formControlName="password"
+                placeholder="password"
+                [(ngModel)]="password"
+              />
+            </nz-input-group>
+          </nz-form-control>
+          <ng-template #suffixTemplate>
+            <span
+              nz-icon
+              [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+              (click)="passwordVisible = !passwordVisible"
+            ></span>
+          </ng-template>
+        </nz-form-item>
       </nz-form-control>
     </nz-form-item>
     <!-- <p>Please select your college</p>

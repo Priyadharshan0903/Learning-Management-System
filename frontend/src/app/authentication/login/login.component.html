@@ -1,6 +1,6 @@
 <div class="flex flex-col justify-start items-center mt-[10em]">
   <div
-    class="flex justify-between items-center px-[12px] mt-8 border-2 border-gray-200 border-b-0 w-[325px] gap-[-10px] text-black p-2 bg-blue-950"
+    class="flex justify-between items-center px-[12px] mt-8 border-2 border-gray-200 border-b-0 w-[400px] gap-[-10px] text-black p-2 bg-blue-950"
   >
     <img src="../../../assets/pec-logo.png" alt="pk-logo" class="pl-[20px]" />
   </div>
@@ -14,7 +14,7 @@
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your email!">
           <div class="pb-2">Email</div>
-          <nz-input-group nzPrefixIcon="mailOutline">
+          <nz-input-group nz-icon nzPrefixIcon="mail">
             <input
               type="text"
               nz-input
@@ -27,7 +27,7 @@
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your Password!">
           <div class="py-2">Password</div>
-          <nz-input-group [nzSuffix]="suffixTemplate">
+          <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
             <input
               [type]="passwordVisible ? 'text' : 'password'"
               nz-input
@@ -63,8 +63,9 @@
         Log in
       </button>
       <div class="flex flex-row gap-4">
-        Or
-        <a class="text-sky-500" [routerLink]="['/register']">register now!</a>
+        <a class="text-sky-500 text-lg pl-14" [routerLink]="['/register']"
+          >Don't have an account ?</a
+        >
       </div>
     </form>
   </div>

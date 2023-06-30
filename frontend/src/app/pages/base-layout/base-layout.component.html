@@ -37,8 +37,23 @@
           <div class="mr-20 pb-4">
             <!-- <app-domains></app-domains> -->
           </div>
-          <div class="pb-8">
+          <div class="pb-8 flex flex-row gap-4">
             <!-- <input class="bg-[#49D9C8]" type="file" /> -->
+            <nz-upload
+              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            >
+              <button
+                nz-button
+                class="bg-gray-600 rounded-xl text-white font-bold hover:bg-gray-600 hover:text-[#00df9a] hover:border-black flex justify-center items-center"
+              >
+                <span
+                  nz-icon
+                  nzType="upload"
+                  class="flex justify-center items-center"
+                ></span>
+                <span>Add Department</span>
+              </button>
+            </nz-upload>
             <nz-upload
               nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             >

@@ -23,6 +23,7 @@ export class SiderComponent implements OnInit {
   // };
 
   notesManager = false;
+
   ngOnInit(): void {
     if (this.user.role === 'STUDENT') {
       this.notesManager = false;

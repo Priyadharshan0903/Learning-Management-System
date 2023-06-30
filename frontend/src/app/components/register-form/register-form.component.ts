@@ -12,7 +12,8 @@ import { environment } from 'src/environments/environment';
 })
 export class RegisterFormComponent implements OnInit {
   validateForm!: FormGroup;
-
+  password: any;
+  passwordVisible: any;
   submitForm(): void {
     if (this.validateForm.valid) {
       this.http
