@@ -11,10 +11,20 @@ export class SiderComponent implements OnInit {
   menu: Menu[] = [];
 
   isCollapsed = true;
-  mode = false;
-  dark = false;
+  // mode = false;
+  // dark = false;
   user = JSON.parse(String(localStorage.getItem('user')));
-  department = this.user.department;
+  // department = this.user.department;
+
+  //Refactored code
+  mode!: boolean;
+  dark!: boolean;
+  notesManager!: boolean;
+  department!: string;
+  isAdmin!: boolean;
+  departments = ['CSE', 'EEE', 'MECH', 'ECE', 'IT', 'ADMIN'];
+
+  //////////////
   constructor() {}
 
   // dropdown: { id: any; isOpen: boolean } = {
@@ -22,7 +32,7 @@ export class SiderComponent implements OnInit {
   //   isOpen: false,
   // };
 
-  notesManager = false;
+  // notesManager = false;
 
   ngOnInit(): void {
     if (this.user.role === 'STUDENT') {
@@ -114,5 +124,62 @@ export class SiderComponent implements OnInit {
         },
       ],
     },
+  ];
+
+  //! Refactored Code
+
+  cseSemesters = [
+    { id: '1', title: 'Semester 1' },
+    { id: '2', title: 'Semester 2' },
+    { id: '3', title: 'Semester 3' },
+    { id: '4', title: 'Semester 4' },
+    { id: '5', title: 'Semester 5' },
+    { id: '6', title: 'Semester 6' },
+    { id: '7', title: 'Semester 7' },
+    { id: '8', title: 'Semester 8' },
+  ];
+
+  eeeSemesters = [
+    { id: '1', title: 'Semester 1' },
+    { id: '2', title: 'Semester 2' },
+    { id: '3', title: 'Semester 3' },
+    { id: '4', title: 'Semester 4' },
+    { id: '5', title: 'Semester 5' },
+    { id: '6', title: 'Semester 6' },
+    { id: '7', title: 'Semester 7' },
+    { id: '8', title: 'Semester 8' },
+  ];
+
+  mechSemesters = [
+    { id: '1', title: 'Semester 1' },
+    { id: '2', title: 'Semester 2' },
+    { id: '3', title: 'Semester 3' },
+    { id: '4', title: 'Semester 4' },
+    { id: '5', title: 'Semester 5' },
+    { id: '6', title: 'Semester 6' },
+    { id: '7', title: 'Semester 7' },
+    { id: '8', title: 'Semester 8' },
+  ];
+
+  eceSemesters = [
+    { id: '1', title: 'Semester 1' },
+    { id: '2', title: 'Semester 2' },
+    { id: '3', title: 'Semester 3' },
+    { id: '4', title: 'Semester 4' },
+    { id: '5', title: 'Semester 5' },
+    { id: '6', title: 'Semester 6' },
+    { id: '7', title: 'Semester 7' },
+    { id: '8', title: 'Semester 8' },
+  ];
+
+  itSemesters = [
+    { id: '1', title: 'Semester 1' },
+    { id: '2', title: 'Semester 2' },
+    { id: '3', title: 'Semester 3' },
+    { id: '4', title: 'Semester 4' },
+    { id: '5', title: 'Semester 5' },
+    { id: '6', title: 'Semester 6' },
+    { id: '7', title: 'Semester 7' },
+    { id: '8', title: 'Semester 8' },
   ];
 }

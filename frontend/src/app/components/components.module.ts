@@ -9,6 +9,7 @@ import { DepartmentComponent } from './department/department.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { DepartmentSubMenuComponent } from './department-sub-menu/department-sub-menu.component';
 @NgModule({
   declarations: [
     SiderComponent,
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     NotesManagerComponent,
     DepartmentComponent,
     RegisterFormComponent,
+    DepartmentSubMenuComponent,
   ],
   imports: [
     CommonModule,

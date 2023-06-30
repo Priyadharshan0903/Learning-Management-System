@@ -44,7 +44,7 @@
     </ul>
   </li>
 </ul> -->
-<ul
+<!-- <ul
   nz-menu
   [nzMode]="mode ? 'vertical' : 'inline'"
   [nzTheme]="dark ? 'dark' : 'light'"
@@ -196,6 +196,75 @@
           <li nz-menu-item id="8">Semester 8</li>
         </ul>
       </li>
+    </ul>
+  </li>
+  <li
+    *ngIf="notesManager"
+    class="font-semibold text-lg"
+    nz-submenu
+    nzTitle="Notes Manager"
+    nzIcon="folder-open"
+    [routerLink]="['./notes']"
+  ></li>
+</ul> -->
+<ul
+  nz-menu
+  [nzMode]="mode ? 'vertical' : 'inline'"
+  [nzTheme]="dark ? 'dark' : 'light'"
+  class="mt-10"
+>
+  <li
+    *ngIf="notesManager"
+    nz-submenu
+    nzTitle="Admin Dashboard"
+    nzIcon="dashboard"
+    class="font-semibold text-lg"
+  ></li>
+  <li
+    nz-submenu
+    nzTitle="Departments"
+    nzIcon="build"
+    class="font-semibold text-lg"
+  >
+    <ul class="font-normal text-md">
+      <ng-container *ngFor="let department of departments">
+        <li
+          *ngIf="department === 'CSE' || (department === 'ADMIN' && isAdmin)"
+          nz-submenu
+          nzTitle="{{ department }}"
+        >
+          <app-department-sub-menu
+            [semesters]="department === 'CSE' ? cseSemesters : eeeSemesters"
+          ></app-department-sub-menu>
+        </li>
+        <li
+          *ngIf="department === 'MECH' || (department === 'ADMIN' && isAdmin)"
+          nz-submenu
+          nzTitle="{{ department }}"
+        >
+          <app-department-sub-menu
+            [semesters]="mechSemesters"
+          ></app-department-sub-menu>
+        </li>
+        <li
+          *ngIf="department === 'ECE' || (department === 'ADMIN' && isAdmin)"
+          nz-submenu
+          nzTitle="{{ department }}"
+        >
+          <app-department-sub-menu
+            [semesters]="eceSemesters"
+          ></app-department-sub-menu>
+        </li>
+        <li
+          *ngIf="department === 'IT' || (department === 'ADMIN' && isAdmin)"
+          nz-submenu
+          nzTitle="{{ department }}"
+        >
+          <app-department-sub-menu
+            [semesters]="itSemesters"
+          ></app-department-sub-menu>
+        </li>
+      </ng-container>
     </ul>
   </li>
   <li
