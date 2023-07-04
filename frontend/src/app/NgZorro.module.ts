@@ -1,64 +1,28 @@
 import { NgModule } from '@angular/core';
 
-import { NzSwitchModule } from 'ng-zorro-antd/switch';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { NzMessageModule } from 'ng-zorro-antd/message';
-import { NzPaginationModule } from 'ng-zorro-antd/pagination';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { NzCalendarModule } from 'ng-zorro-antd/calendar';
-import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
-import { NzNotificationModule } from 'ng-zorro-antd/notification';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { NzRadioModule } from 'ng-zorro-antd/radio';
-import { NzEmptyModule } from 'ng-zorro-antd/empty';
-import { NzTransferModule } from 'ng-zorro-antd/transfer';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+
 @NgModule({
   exports: [
-    NzIconModule,
     NzFormModule,
-    NzDatePickerModule,
-    NzLayoutModule,
-    NzBreadCrumbModule,
-    NzMenuModule,
     NzInputModule,
-    NzCheckboxModule,
     NzButtonModule,
-    NzSelectModule,
-    NzTableModule,
+    NzIconModule,
+    NzLayoutModule,
     NzModalModule,
-    NzPopconfirmModule,
-    NzMessageModule,
-    NzPaginationModule,
-    NzToolTipModule,
-    NzCalendarModule,
-    NzInputNumberModule,
-    NzNotificationModule,
+    NzTableModule,
+    NzMenuModule,
+    NzBreadCrumbModule,
     NzUploadModule,
-    NzRadioModule,
-    NzEmptyModule,
-    NzInputModule,
-    NzTransferModule,
-    NzSpinModule,
-    NzDropDownModule,
-    NzDividerModule,
-    NzSwitchModule,
-    NzSkeletonModule,
   ],
 })
 export class NgZorroModule {}

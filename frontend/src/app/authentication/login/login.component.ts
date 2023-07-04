@@ -13,7 +13,6 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
-  password: any;
   passwordVisible: any;
 
   constructor(

@@ -1,68 +1,49 @@
-<nz-header
-  class="flex flex-row justify-end gap-8 w-full bg-white top-0 sticky z-99 my-3"
->
-  <div class="app-header shadow-none">
-    <span class="header-trigger">
-      <!-- <a href="">
-        <span
-          class="px-10"
-          nz-icon
-          nzType="mail"
-          style="font-size: 23px"
-          nzTheme="outline"
-        ></span>
-      </a> -->
-      <span class="text-lg px-10 mt-[３px]">Account Details</span>
-      <span
-        (click)="showModal()"
-        class="justify-end"
-        nz-icon
-        style="font-size: 23px"
-        nzType="user"
-        nzTheme="outline"
-      >
-      </span>
-    </span>
-  </div>
-  <!-- <button nz-button nzType="primary" (click)="showModal()">
-    <span>Show Modal</span>
-  </button> -->
-  <nz-modal
-    [(nzVisible)]="isVisible"
-    [nzTitle]="modalTitle"
-    [nzContent]="modalContent"
-    [nzFooter]="modalFooter"
-    (nzOnCancel)="handleCancel()"
+<div class="flex items-center justify-end p-4 px-6">
+  <span
+    (click)="showModal()"
+    class="justify-end"
+    nz-icon
+    style="font-size: 23px"
+    nzType="user"
+    nzTheme="outline"
   >
-    <ng-template #modalTitle class="text-xl font-bold"
-      >User Crendentials
-    </ng-template>
+  </span>
+</div>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle class="text-xl font-bold"
+    >User Credentials
+  </ng-template>
 
-    <ng-template #modalContent>
-      <p class="text-md font-semibold">
-        USERNAME : <span class="font-normal">{{ userName }}</span>
-      </p>
-      <p class="text-md font-semibold">
-        EMAIL : <span class="font-normal">{{ email }}</span>
-      </p>
-      <p class="text-md font-semibold">
-        ROLE : <span class="font-normal">{{ role }}</span>
-      </p>
-      <p class="text-md font-semibold">
-        DEPARTMENT : <span class="font-normal">{{ department }}</span>
-      </p>
-    </ng-template>
+  <ng-template #modalContent>
+    <p class="text-md font-semibold">
+      USERNAME : <span class="font-normal">{{ userName }}</span>
+    </p>
+    <p class="text-md font-semibold">
+      EMAIL : <span class="font-normal">{{ email }}</span>
+    </p>
+    <p class="text-md font-semibold">
+      ROLE : <span class="font-normal">{{ role }}</span>
+    </p>
+    <p class="text-md font-semibold">
+      DEPARTMENT : <span class="font-normal">{{ department }}</span>
+    </p>
+  </ng-template>
 
-    <ng-template #modalFooter>
-      <button
-        nz-button
-        nzType="primary"
-        [routerLink]="['./login']"
-        (click)="handleOk()"
-        [nzLoading]="isConfirmLoading"
-      >
-        Log Out
-      </button>
-    </ng-template>
-  </nz-modal>
-</nz-header>
+  <ng-template #modalFooter>
+    <button
+      nz-button
+      nzType="primary"
+      [routerLink]="['./login']"
+      (click)="logout()"
+      [nzLoading]="isConfirmLoading"
+    >
+      Log Out
+    </button>
+  </ng-template>
+</nz-modal>

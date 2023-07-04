@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
     this.isVisible = true;
   }
 
-  handleOk(): void {
+  logout(): void {
     this.isConfirmLoading = true;
     setTimeout(() => {
       this.isVisible = false;

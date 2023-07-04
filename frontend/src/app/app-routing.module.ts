@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BaseLayoutComponent } from './pages/base-layout/base-layout.component';
 import { LoginComponent } from './authentication/login/login.component';
-import { NotesManagerComponent } from './components/notes-manager/notes-manager.component';
-import { DepartmentComponent } from './components/department/department.component';
+import { NotesManagerComponent } from './pages/notes-manager/notes-manager.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { AuthGuard, StudentGuard } from './helpers/guard.guard';
+import { DepartmentsComponent } from './pages/departments/departments.component';
 
 const routes: Routes = [
   {
@@ -19,8 +19,8 @@ const routes: Routes = [
         canActivate: [AuthGuard, StudentGuard],
       },
       {
-        path: 'CSE',
-        component: DepartmentComponent,
+        path: 'departments',
+        component: DepartmentsComponent,
         canActivate: [AuthGuard],
       },
     ],

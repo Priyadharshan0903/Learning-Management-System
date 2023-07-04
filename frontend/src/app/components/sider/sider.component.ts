@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Menu } from '../../models/menu';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sider',
@@ -7,31 +6,13 @@ import { Menu } from '../../models/menu';
   styleUrls: ['./sider.component.scss'],
 })
 export class SiderComponent implements OnInit {
-  @Input()
-  menu: Menu[] = [];
-
   isCollapsed = true;
-  // mode = false;
-  // dark = false;
   user = JSON.parse(String(localStorage.getItem('user')));
-  department = this.user.department;
 
-  //Refactored code
-  mode!: boolean;
-  dark!: boolean;
-  notesManager!: boolean;
-  isAdmin!: boolean;
+  notesManager = false;
   departments = ['CSE', 'EEE', 'MECH', 'ECE', 'IT', 'ADMIN'];
 
-  //////////////
   constructor() {}
-
-  // dropdown: { id: any; isOpen: boolean } = {
-  //   id: null,
-  //   isOpen: false,
-  // };
-
-  // notesManager = false;
 
   ngOnInit(): void {
     if (this.user.role === 'STUDENT') {
@@ -46,132 +27,11 @@ export class SiderComponent implements OnInit {
     }
   }
 
-  // toggle(id: any) {
-  //   if (id === this.dropdown.id) this.dropdown.isOpen = !this.dropdown.isOpen;
-  //   else this.dropdown.isOpen = true;
-  //   this.dropdown.id = id;
-  // }
-  menus = [
-    {
-      level: 1,
-      title: 'Mail Group',
-      icon: 'mail',
-      theme: 'twotone',
-      open: true,
-      selected: false,
-      disabled: false,
-      children: [
-        {
-          level: 2,
-          title: 'Group 1',
-          icon: 'bars',
-          open: false,
-          selected: false,
-          disabled: false,
-          children: [
-            {
-              level: 3,
-              title: 'Option 1',
-              selected: false,
-              disabled: false,
-            },
-            {
-              level: 3,
-              title: 'Option 2',
-              selected: false,
-              disabled: true,
-            },
-          ],
-        },
-        {
-          level: 2,
-          title: 'Group 2',
-          icon: 'bars',
-          selected: true,
-          disabled: false,
-        },
-        {
-          level: 2,
-          title: 'Group 3',
-          icon: 'bars',
-          selected: false,
-          disabled: false,
-        },
-      ],
-    },
-    {
-      level: 1,
-      title: 'Team Group',
-      icon: 'team',
-      open: false,
-      selected: false,
-      disabled: false,
-      children: [
-        {
-          level: 2,
-          title: 'User 1',
-          icon: 'user',
-          selected: false,
-          disabled: false,
-        },
-        {
-          level: 2,
-          title: 'User 2',
-          icon: 'user',
-          selected: false,
-          disabled: false,
-        },
-      ],
-    },
-  ];
+  toggleCollapsed(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
 
-  //! Refactored Code
-
-  cseSemesters = [
-    { id: '1', title: 'Semester 1' },
-    { id: '2', title: 'Semester 2' },
-    { id: '3', title: 'Semester 3' },
-    { id: '4', title: 'Semester 4' },
-    { id: '5', title: 'Semester 5' },
-    { id: '6', title: 'Semester 6' },
-    { id: '7', title: 'Semester 7' },
-    { id: '8', title: 'Semester 8' },
-  ];
-
-  eeeSemesters = [
-    { id: '1', title: 'Semester 1' },
-    { id: '2', title: 'Semester 2' },
-    { id: '3', title: 'Semester 3' },
-    { id: '4', title: 'Semester 4' },
-    { id: '5', title: 'Semester 5' },
-    { id: '6', title: 'Semester 6' },
-    { id: '7', title: 'Semester 7' },
-    { id: '8', title: 'Semester 8' },
-  ];
-
-  mechSemesters = [
-    { id: '1', title: 'Semester 1' },
-    { id: '2', title: 'Semester 2' },
-    { id: '3', title: 'Semester 3' },
-    { id: '4', title: 'Semester 4' },
-    { id: '5', title: 'Semester 5' },
-    { id: '6', title: 'Semester 6' },
-    { id: '7', title: 'Semester 7' },
-    { id: '8', title: 'Semester 8' },
-  ];
-
-  eceSemesters = [
-    { id: '1', title: 'Semester 1' },
-    { id: '2', title: 'Semester 2' },
-    { id: '3', title: 'Semester 3' },
-    { id: '4', title: 'Semester 4' },
-    { id: '5', title: 'Semester 5' },
-    { id: '6', title: 'Semester 6' },
-    { id: '7', title: 'Semester 7' },
-    { id: '8', title: 'Semester 8' },
-  ];
-
-  itSemesters = [
+  semesters = [
     { id: '1', title: 'Semester 1' },
     { id: '2', title: 'Semester 2' },
     { id: '3', title: 'Semester 3' },

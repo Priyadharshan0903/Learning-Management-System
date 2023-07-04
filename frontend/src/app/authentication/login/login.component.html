@@ -1,20 +1,22 @@
-<div class="flex flex-col justify-start items-center mt-[10em]">
+<div class="background"></div>
+<div class="pt-[10%]">
   <div
-    class="flex justify-between items-center px-[12px] mt-8 border-2 border-gray-200 border-b-0 w-[400px] gap-[-10px] text-black p-2 bg-blue-950"
+    class="flex flex-col gap-4 items-center w-[350px] mx-auto rounded shadow bg-white"
   >
-    <img src="../../../assets/pec-logo.png" alt="pk-logo" class="pl-[20px]" />
-  </div>
-  <div class="shadow-xl shadow-blue-950">
+    <img
+      src="../../../assets/pec-logo.png"
+      alt="pk-logo"
+      class="bg-blue-950 p-2 rounded-t"
+    />
     <form
-      nz-form
+      class="w-full px-5 pb-5"
       [formGroup]="validateForm"
-      class="login-form"
       (ngSubmit)="submitForm()"
     >
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your email!">
-          <div class="pb-2">Email</div>
-          <nz-input-group nz-icon nzPrefixIcon="mail">
+          <nz-form-label nzRequired>Email</nz-form-label>
+          <nz-input-group nz-icon nzPrefixIcon="mail" nzSize="large">
             <input
               type="text"
               nz-input
@@ -26,14 +28,17 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your Password!">
-          <div class="py-2">Password</div>
-          <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+          <nz-form-label nzRequired>Password</nz-form-label>
+          <nz-input-group
+            nzPrefixIcon="lock"
+            [nzSuffix]="suffixTemplate"
+            nzSize="large"
+          >
             <input
               [type]="passwordVisible ? 'text' : 'password'"
               nz-input
               formControlName="password"
               placeholder="password"
-              [(ngModel)]="password"
             />
           </nz-input-group>
         </nz-form-control>
@@ -45,28 +50,7 @@
           ></span>
         </ng-template>
       </nz-form-item>
-      <div nz-row class="login-form-margin">
-        <div nz-col [nzSpan]="12">
-          <label nz-checkbox formControlName="remember">
-            <span>Remember me</span>
-          </label>
-        </div>
-        <div nz-col [nzSpan]="12">
-          <a class="login-form-forgot">Forgot password?</a>
-        </div>
-      </div>
-      <button
-        nz-button
-        class="login-form-button login-form-margin"
-        [nzType]="'primary'"
-      >
-        Log in
-      </button>
-      <div class="flex flex-row gap-4">
-        <a class="text-sky-500 text-lg pl-14" [routerLink]="['/register']"
-          >Don't have an account ?</a
-        >
-      </div>
+      <button nz-button class="w-full" [nzType]="'primary'">Log in</button>
     </form>
   </div>
 </div>
