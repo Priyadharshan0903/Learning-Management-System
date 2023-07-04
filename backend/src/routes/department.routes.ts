@@ -26,6 +26,12 @@ export class DepartmentRoutes {
     this.router.get("/:id", verifyToken, (req, res) =>
       this.controller.getDepartmentById(req, res)
     );
+
+    //UPDATE a department
+    this.router.put("/:id", verifyToken, (req, res) => {
+      this.controller.updateDepartment(req, res);
+    });
+
     //DELETE a department
     this.router.delete("/:id", verifyToken, (req, res) =>
       this.controller.deleteDepartment(req, res)

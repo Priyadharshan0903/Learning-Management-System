@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import { Op } from "sequelize";
 
 export class UserController {
+  [x: string]: any;
   private userService: UserService;
   constructor() {
     this.userService = new UserService(Users);

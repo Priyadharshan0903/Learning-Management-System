@@ -26,6 +26,12 @@ export class SubjectRoutes {
     this.router.get("/:id", verifyToken, (req, res) =>
       this.controller.getSubjectsById(req, res)
     );
+
+    //UPDATE a department
+    this.router.put("/:id", verifyToken, (req, res) => {
+      this.controller.updateSubjects(req, res);
+    });
+
     //DELETE a Subject
     this.router.delete("/:id", verifyToken, (req, res) =>
       this.controller.deleteSubject(req, res)
