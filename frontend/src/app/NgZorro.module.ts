@@ -10,6 +10,11 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
   exports: [
@@ -23,6 +28,11 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzMenuModule,
     NzBreadCrumbModule,
     NzUploadModule,
+    NzPopconfirmModule,
+    NzPaginationModule,
+    NzSelectModule,
+    NzMessageModule,
+    NzDatePickerModule,
   ],
 })
 export class NgZorroModule {}

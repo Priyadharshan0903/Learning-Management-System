@@ -6,7 +6,7 @@ import { Users } from "./models";
 import { UserService } from "./services/users.service";
 import bcrypt from "bcryptjs";
 import { SubjectRoutes, UserRoutes } from "./routes";
-import { DepartmentRoutes } from "./routes/Department.routes";
+import { DepartmentRoutes } from "./routes/department.routes";
 import { Department } from "./models/department";
 import { Subject } from "./models/subjects";
 

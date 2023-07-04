@@ -7,8 +7,14 @@ import { RouterModule } from '@angular/router';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { StudentFormComponent } from './student-form/student-form.component';
 @NgModule({
-  declarations: [SiderComponent, HeaderComponent, RegisterFormComponent],
+  declarations: [
+    SiderComponent,
+    HeaderComponent,
+    RegisterFormComponent,
+    StudentFormComponent,
+  ],
   imports: [
     CommonModule,
     NgZorroModule,
@@ -16,6 +22,6 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
   ],
-  exports: [SiderComponent, HeaderComponent],
+  exports: [SiderComponent, HeaderComponent, StudentFormComponent],
 })
 export class ComponentsModule {}

@@ -17,6 +17,7 @@ import { NgZorroModule } from './NgZorro.module';
 import { ComponentsModule } from './components/components.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { PagesModule } from './pages/pages.module';
+import { AuthInterceptorProvider } from './helpers/auth.interceptor';
 
 registerLocaleData(en);
 
@@ -37,7 +38,7 @@ registerLocaleData(en);
     PagesModule,
     ReactiveFormsModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, AuthInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

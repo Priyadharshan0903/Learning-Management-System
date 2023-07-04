@@ -1,0 +1,83 @@
+<div class="flex gap-10" @fade>
+  <div class="flex-grow">
+    <nz-table
+      #basicTable
+      nzSize="small"
+      [nzData]="students"
+      [nzLoading]="isLoading"
+      [nzShowPagination]="false"
+      [nzFrontPagination]="false"
+      [(nzPageSize)]="pageSize"
+      [(nzPageIndex)]="pageIndex"
+      (nzQueryParams)="getStudents($event)"
+      class="shadow rounded"
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Roll No</th>
+          <th>Register No</th>
+          <th>Department</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of basicTable.data">
+          <td>{{ s.name }}</td>
+          <td>{{ s.rollNo }}</td>
+          <td>{{ s.regNo }}</td>
+          <td>{{ s.deptName }}</td>
+          <td>
+            <div class="flex gap-4 items-center">
+              <span
+                class="text-red-400 text-base cursor-pointer"
+                nz-icon
+                nzType="delete"
+                nzTheme="outline"
+                nz-tooltip
+                nzTooltipTitle="Delete"
+                nz-popconfirm
+                nzPopconfirmPlacement="bottom"
+                nzPopconfirmTitle="Are you sure delete this student?"
+                (nzOnConfirm)="deleteStudent(s.id)"
+              ></span>
+              <span
+                class="text-blue-400 text-base cursor-pointer"
+                nz-icon
+                nzType="edit"
+                nzTheme="outline"
+                nz-tooltip
+                nzTooltipTitle="Edit"
+                (click)="studentId = s.id"
+              ></span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div class="flex justify-end mt-4">
+      <nz-pagination
+        nzSize="small"
+        [(nzPageIndex)]="pageIndex"
+        [(nzPageSize)]="pageSize"
+        [nzTotal]="total"
+        [nzShowTotal]="rangeTemplate"
+        nzShowSizeChanger
+      ></nz-pagination>
+    </div>
+  </div>
+  <div class="shadow border border-gray-100 rounded p-6 self-start">
+    <app-student-form
+      [(studentId)]="studentId"
+      (onFormSubmit)="getStudents()"
+    ></app-student-form>
+  </div>
+</div>
+
+<ng-template #rangeTemplate let-range="range" let-total>
+  {{ range[0] }}-{{ range[1] }} of {{ total }} items
+</ng-template>
+
+<ng-template #suffixIconSearch>
+  <span nz-icon nzType="search"></span>
+</ng-template>

@@ -6,6 +6,7 @@ import { NotesManagerComponent } from './pages/notes-manager/notes-manager.compo
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { AuthGuard, StudentGuard } from './helpers/guard.guard';
 import { DepartmentsComponent } from './pages/departments/departments.component';
+import { StudentsComponent } from './pages/students/students.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
       {
         path: 'departments',
         component: DepartmentsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'students',
+        component: StudentsComponent,
         canActivate: [AuthGuard],
       },
     ],

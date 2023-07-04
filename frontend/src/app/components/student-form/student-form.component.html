@@ -1,0 +1,59 @@
+<h1 class="text-lg font-medium text-center">
+  {{ studentId > 0 ? "Edit" : "Add" }} Student
+</h1>
+<form nz-form [formGroup]="form" class="w-[400px]" nzLayout="vertical">
+  <nz-form-item>
+    <nz-form-label nzRequired class="text-gray-700">Name</nz-form-label>
+    <nz-form-control nzErrorTip="Please input student name">
+      <input nz-input type="text" formControlName="name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <div class="grid grid-cols-2 gap-x-4">
+    <nz-form-item>
+      <nz-form-label nzRequired>Register No</nz-form-label>
+      <nz-form-control nzErrorTip="Please input register no!">
+        <input nz-input type="text" formControlName="regNo" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>Roll No</nz-form-label>
+      <nz-form-control nzErrorTip="Please input a roll no!">
+        <input nz-input type="text" formControlName="rollNo" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>Department</nz-form-label>
+      <nz-form-control nzErrorTip="Please select department">
+        <nz-select nzShowSearch nzAllowClear formControlName="deptId">
+          <nz-option
+            [nzValue]="d.id"
+            [nzLabel]="d.name"
+            *ngFor="let d of departments"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>DOB</nz-form-label>
+      <nz-form-control nzErrorTip="Please select dob">
+        <nz-date-picker formControlName="dob" class="w-full"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+  <div class="flex gap-4">
+    <button nz-button [nzType]="'primary'" class="flex-grow" (click)="submit()">
+      {{ studentId > 0 ? "Save" : "Add" }}
+    </button>
+    <button
+      nz-button
+      [nzType]="'default'"
+      class="flex-grow"
+      (click)="studentId = -1; form.reset()"
+      *ngIf="studentId > 0"
+    >
+      cancel
+    </button>
+  </div>
+</form>
