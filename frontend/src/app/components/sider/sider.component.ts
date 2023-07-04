@@ -14,13 +14,12 @@ export class SiderComponent implements OnInit {
   // mode = false;
   // dark = false;
   user = JSON.parse(String(localStorage.getItem('user')));
-  // department = this.user.department;
+  department = this.user.department;
 
   //Refactored code
   mode!: boolean;
   dark!: boolean;
   notesManager!: boolean;
-  department!: string;
   isAdmin!: boolean;
   departments = ['CSE', 'EEE', 'MECH', 'ECE', 'IT', 'ADMIN'];
 
