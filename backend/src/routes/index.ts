@@ -1,2 +1,2 @@
 export * from "./users.routes";
-export { DepartmentRoutes } from "./department.routes";
+export * from "./subject.routes";

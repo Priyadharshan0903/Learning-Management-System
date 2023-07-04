@@ -5,8 +5,10 @@ import { sequelize } from "./db";
 import { Users } from "./models";
 import { UserService } from "./services/users.service";
 import bcrypt from "bcryptjs";
-import { DepartmentRoutes, UserRoutes } from "./routes";
+import { SubjectRoutes, UserRoutes } from "./routes";
+import { DepartmentRoutes } from "./routes/Department.routes";
 import { Department } from "./models/department";
+import { Subject } from "./models/subjects";
 
 dotenv.config();
 
@@ -47,10 +49,13 @@ Users.sync().then(() => {
       }
     });
 });
+
 Department.sync();
+Subject.sync();
 
 app.use("/api/users", new UserRoutes().getRouter());
 app.use("/api/departments", new DepartmentRoutes().getRouter());
+app.use("/api/subjects", new SubjectRoutes().getRouter());
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

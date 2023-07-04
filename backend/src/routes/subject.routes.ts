@@ -1,34 +1,34 @@
 import { Request, Response, Router } from "express";
-import { DepartmentController } from "../controllers";
 import { verifyToken } from "../middleware";
+import { SubjectController } from "../controllers/Subjects.controller";
 
-export class DepartmentRoutes {
+export class SubjectRoutes {
   private router: Router;
-  private controller: DepartmentController;
+  private controller: SubjectController;
 
   constructor() {
-    this.controller = new DepartmentController();
+    this.controller = new SubjectController();
     this.router = Router();
     this.routes();
   }
   private routes() {
     this.router.post("/", verifyToken, (req, res) =>
-      this.controller.createDepartment(req, res)
+      this.controller.createSubject(req, res)
     );
 
-    // GET All departmnet
+    // GET All Subject
 
     this.router.get("/", verifyToken, (req, res) =>
-      this.controller.getAllDepartments(req, res)
+      this.controller.getAllSubjects(req, res)
     );
 
-    // GET a department by Id
+    // GET a Subject by Id
     this.router.get("/:id", verifyToken, (req, res) =>
-      this.controller.getDepartmentById(req, res)
+      this.controller.getSubjectsById(req, res)
     );
-    //DELETE a department
+    //DELETE a Subject
     this.router.delete("/:id", verifyToken, (req, res) =>
-      this.controller.deleteDepartment(req, res)
+      this.controller.deleteSubject(req, res)
     );
   }
   public getRouter() {
