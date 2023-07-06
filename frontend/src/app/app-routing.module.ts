@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { BaseLayoutComponent } from './pages/base-layout/base-layout.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { NotesManagerComponent } from './pages/notes-manager/notes-manager.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { AuthGuard, StudentGuard } from './helpers/guard.guard';
 import { DepartmentsComponent } from './pages/departments/departments.component';
 import { StudentsComponent } from './pages/students/students.component';
+import { StaffComponent } from './pages/staff/staff.component';
 
 const routes: Routes = [
   {
@@ -25,6 +25,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: 'staff',
+        component: StaffComponent,
+        canActivate: [AuthGuard],
+      },
+      {
         path: 'students',
         component: StudentsComponent,
         canActivate: [AuthGuard],
@@ -32,10 +37,6 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
-  {
-    path: 'register',
-    component: RegisterFormComponent,
-  },
 ];
 
 @NgModule({

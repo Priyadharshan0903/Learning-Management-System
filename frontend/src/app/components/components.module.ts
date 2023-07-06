@@ -4,16 +4,16 @@ import { SiderComponent } from './sider/sider.component';
 import { NgZorroModule } from '../NgZorro.module';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
-import { RegisterFormComponent } from './register-form/register-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { StudentFormComponent } from './student-form/student-form.component';
+import { StaffFormComponent } from './staff-form/staff-form.component';
 @NgModule({
   declarations: [
     SiderComponent,
     HeaderComponent,
-    RegisterFormComponent,
     StudentFormComponent,
+    StaffFormComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +22,11 @@ import { StudentFormComponent } from './student-form/student-form.component';
     ReactiveFormsModule,
     FormsModule,
   ],
-  exports: [SiderComponent, HeaderComponent, StudentFormComponent],
+  exports: [
+    SiderComponent,
+    HeaderComponent,
+    StudentFormComponent,
+    StaffFormComponent,
+  ],
 })
 export class ComponentsModule {}

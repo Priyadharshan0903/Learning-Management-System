@@ -9,9 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotesManagerComponent } from './notes-manager/notes-manager.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { StudentsComponent } from './students/students.component';
+import { StaffComponent } from './staff/staff.component';
 
 @NgModule({
-  declarations: [BaseLayoutComponent, NotesManagerComponent, DepartmentsComponent, StudentsComponent],
+  declarations: [BaseLayoutComponent, NotesManagerComponent, DepartmentsComponent, StudentsComponent, StaffComponent],
   imports: [
     CommonModule,
     RouterModule,

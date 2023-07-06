@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 import { sequelize } from "./db";
@@ -15,7 +15,9 @@ import {
   fileSizeLimiter,
   filesPayloadExists,
 } from "./middleware";
+
 import path from "path";
+
 dotenv.config();
 
 const app: Express = express();
@@ -27,6 +29,7 @@ let corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.static(__dirname + "/files", { index: false }));
 
 sequelize
   .authenticate()
@@ -64,14 +67,13 @@ app.use("/api/departments", new DepartmentRoutes().getRouter());
 app.use("/api/subjects", new SubjectRoutes().getRouter());
 
 app.post(
-  "/upload",
+  "/api/upload",
   fileUpload({ createParentPath: true }),
   filesPayloadExists,
   fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
   fileSizeLimiter,
   (req, res) => {
     const files: any = req.files;
-    console.log(files);
     if (files)
       Object.keys(files).forEach((key) => {
         const filepath = path.join(__dirname, "files", files[key].name);

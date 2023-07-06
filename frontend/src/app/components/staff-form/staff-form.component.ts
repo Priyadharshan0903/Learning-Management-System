@@ -9,34 +9,34 @@ import { differenceInCalendarDays } from 'date-fns';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-student-form',
-  templateUrl: './student-form.component.html',
-  styleUrls: ['./student-form.component.scss'],
+  selector: 'app-staff-form',
+  templateUrl: './staff-form.component.html',
+  styleUrls: ['./staff-form.component.scss'],
 })
-export class StudentFormComponent implements OnInit {
+export class StaffFormComponent {
   departments: Department[];
   form: FormGroup;
 
-  _studentId = -1;
+  _staffId = -1;
 
-  get studentId() {
-    return this._studentId;
+  get staffId() {
+    return this._staffId;
   }
 
   @Input()
-  set studentId(id: number) {
-    this._studentId = id;
-    this.studentIdChange.emit(id);
+  set staffId(id: number) {
+    this._staffId = id;
+    this.staffIdChange.emit(id);
     if (id > 0)
       this.http
-        .get(`${environment.apiUrl}/students/${id}`)
+        .get(`${environment.apiUrl}/staff/${id}`)
         .subscribe((data: any) => {
           this.form.patchValue(data);
         });
   }
 
   @Output()
-  studentIdChange = new EventEmitter();
+  staffIdChange = new EventEmitter();
 
   @Output()
   onFormSubmit = new EventEmitter();
@@ -52,11 +52,8 @@ export class StudentFormComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       name: ['', [Validators.required]],
-      dob: ['', [Validators.required]],
-      regNo: ['', [Validators.required]],
-      rollNo: ['', [Validators.required]],
-      deptId: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      deptId: ['', [Validators.required]],
     });
   }
 
@@ -70,23 +67,23 @@ export class StudentFormComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      if (this.studentId === -1)
+      if (this.staffId === -1)
         this.http
-          .post(`${environment.apiUrl}/students`, this.form.value)
+          .post(`${environment.apiUrl}/staff`, this.form.value)
           .subscribe((data: any) => {
-            this.message.success('Student added successfully');
+            this.message.success('Staff added successfully');
             this.form.reset();
             this.onFormSubmit.emit();
           });
       else
         this.http
-          .put(`${environment.apiUrl}/students/${this.studentId}`, {
-            id: this.studentId,
+          .put(`${environment.apiUrl}/staff/${this.staffId}`, {
+            id: this.staffId,
             ...this.form.value,
           })
           .subscribe((data: any) => {
-            this.message.success('Student updated successfully');
-            this.studentId = -1;
+            this.message.success('Staff updated successfully');
+            this.staffId = -1;
             this.form.reset();
             this.onFormSubmit.emit();
           });
