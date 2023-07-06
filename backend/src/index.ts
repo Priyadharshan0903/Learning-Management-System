@@ -9,7 +9,13 @@ import { SubjectRoutes, UserRoutes } from "./routes";
 import { DepartmentRoutes } from "./routes/department.routes";
 import { Department } from "./models/department";
 import { Subject } from "./models/subjects";
-
+import fileUpload from "express-fileupload";
+import {
+  fileExtLimiter,
+  fileSizeLimiter,
+  filesPayloadExists,
+} from "./middleware";
+import path from "path";
 dotenv.config();
 
 const app: Express = express();
@@ -56,6 +62,31 @@ Subject.sync();
 app.use("/api/users", new UserRoutes().getRouter());
 app.use("/api/departments", new DepartmentRoutes().getRouter());
 app.use("/api/subjects", new SubjectRoutes().getRouter());
+
+app.post(
+  "/upload",
+  fileUpload({ createParentPath: true }),
+  filesPayloadExists,
+  fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
+  fileSizeLimiter,
+  (req, res) => {
+    const files: any = req.files;
+    console.log(files);
+    if (files)
+      Object.keys(files).forEach((key) => {
+        const filepath = path.join(__dirname, "files", files[key].name);
+
+        files[key].mv(filepath, (err: any) => {
+          if (err)
+            return res.status(500).json({ status: "error", message: err });
+        });
+      });
+    return res.json({
+      status: "logged ",
+      message: Object.keys(files).toString(),
+    });
+  }
+);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
