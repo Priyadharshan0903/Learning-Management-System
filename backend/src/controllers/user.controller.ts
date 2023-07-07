@@ -31,7 +31,7 @@ export class UserController {
                   userId: user.dataValues.id,
                   email,
                   role: user.dataValues.role,
-                  department: user.dataValues.department,
+                  deptId: user.dataValues.deptId,
                 },
                 process.env.TOKEN_KEY ? process.env.TOKEN_KEY : "",
                 {

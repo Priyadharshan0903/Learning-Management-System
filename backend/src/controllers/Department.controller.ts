@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Department } from "../../src/models/department";
 import { DepartmentService } from "../services/department.service";
+import { Op } from "sequelize";
 export class DepartmentController {
   private departmentService: DepartmentService;
 
@@ -10,7 +11,7 @@ export class DepartmentController {
 
   // Creating dept.
 
-  async createDepartment(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     const { name } = req.body;
     const department = await Department.create({ name });
     return res.status(201).json(department);
@@ -18,14 +19,16 @@ export class DepartmentController {
 
   // Retrieve all dept.
 
-  async getAllDepartments(req: Request, res: Response) {
-    const departments = await Department.findAll();
+  async getAll(req: Request, res: Response) {
+    const departments = await Department.findAll({
+      where: { name: { [Op.not]: ["ADMIN"] } },
+    });
     return res.status(200).json(departments);
   }
 
   // Retrieve a dept. by Id
 
-  async getDepartmentById(req: Request, res: Response) {
+  async getById(req: Request, res: Response) {
     const { id } = req.params;
     const department = await Department.findByPk(id);
     if (department) {
@@ -36,7 +39,7 @@ export class DepartmentController {
 
   // Update a dept.
 
-  async updateDepartment(req: Request, res: Response) {
+  async update(req: Request, res: Response) {
     const { id } = req.params;
     const { name } = req.body;
     const department = await Department.findByPk(id);
@@ -49,7 +52,7 @@ export class DepartmentController {
 
   // Delete a departemnt.
 
-  async deleteDepartment(req: Request, res: Response) {
+  async delete(req: Request, res: Response) {
     const { id } = req.params;
     const department = await Department.findByPk(id);
     if (department) {

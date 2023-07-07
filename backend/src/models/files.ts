@@ -1,5 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
+import { Department } from "./department";
+import { Users } from "./users";
 
 export class Files extends Model {
   fileName: any;
@@ -18,6 +20,21 @@ Files.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    deptId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Department,
+        key: "id",
+      },
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Users,
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
@@ -26,3 +43,6 @@ Files.init(
     underscored: true,
   }
 );
+
+Files.belongsTo(Department, { foreignKey: "deptId" });
+Files.belongsTo(Users, { foreignKey: "userId" });

@@ -13,28 +13,28 @@ export class DepartmentRoutes {
   }
   private routes() {
     this.router.post("/", verifyToken, (req, res) =>
-      this.controller.createDepartment(req, res)
+      this.controller.create(req, res)
     );
 
     // GET All departmnet
 
     this.router.get("/", verifyToken, (req, res) =>
-      this.controller.getAllDepartments(req, res)
+      this.controller.getAll(req, res)
     );
 
     // GET a department by Id
     this.router.get("/:id", verifyToken, (req, res) =>
-      this.controller.getDepartmentById(req, res)
+      this.controller.getById(req, res)
     );
 
     //UPDATE a department
     this.router.put("/:id", verifyToken, (req, res) => {
-      this.controller.updateDepartment(req, res);
+      this.controller.update(req, res);
     });
 
     //DELETE a department
     this.router.delete("/:id", verifyToken, (req, res) =>
-      this.controller.deleteDepartment(req, res)
+      this.controller.delete(req, res)
     );
   }
   public getRouter() {

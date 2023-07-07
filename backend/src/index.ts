@@ -17,7 +17,8 @@ import {
 } from "./middleware";
 
 import path from "path";
-import { Files } from "./models/FilesName";
+import { Files } from "./models/files";
+import { DepartmentService } from "./services/department.service";
 
 dotenv.config();
 
@@ -53,7 +54,7 @@ Users.sync().then(() => {
             name: "Admin",
             email: "admin@local.com",
             password: hashPassword,
-            department: "ADMIN",
+            deptId: 1,
             role: "ADMIN",
           });
           new UserService(Users).create(newUser);
@@ -62,7 +63,18 @@ Users.sync().then(() => {
     });
 });
 
-Department.sync();
+Department.sync().then(() => {
+  new DepartmentService(Department)
+    .find({ where: { name: "ADMIN" } })
+    .then((dept: any) => {
+      if (!dept) {
+        let newDept = new Department({
+          name: "ADMIN",
+        });
+        new DepartmentService(Department).create(newDept);
+      }
+    });
+});
 Subject.sync();
 Files.sync();
 
@@ -93,8 +105,15 @@ app.post(
   //     });
   //   }
   // );
+
   async (req, res) => {
     const files: any = req.files;
+    const token = req.headers;
+    console.log(token);
+    // if (!user) {
+    //   return res.status(401).json({ status: "error", message: "Unauthorized" });
+    // }
+
     if (files) {
       Object.keys(files).forEach((key) => {
         const filepath = path.join(__dirname, "files", files[key].name);
@@ -108,7 +127,6 @@ app.post(
         await Files.bulkCreate(fileNames.map((fileName) => ({ fileName })));
         list_of_files.push(...fileNames);
         return res.json({
-          status: "logged ",
           message: Object.keys(files).toString(),
         });
       } catch (error) {
@@ -124,12 +142,6 @@ app.post(
   }
 );
 
-// app.get("/api/files", (req, res) => {
-//   return res.json({
-//     status: "logged ",
-//     message: list_of_files,
-//   });
-// });
 app.get("/api/files", async (req, res) => {
   try {
     const fileNames = await Files.findAll({
@@ -137,10 +149,7 @@ app.get("/api/files", async (req, res) => {
       raw: true,
     });
     const files = fileNames.map((fileName) => fileName);
-    return res.json({
-      status: "logged ",
-      files: files,
-    });
+    return res.json(files);
   } catch (error) {
     console.error(error);
     return res
