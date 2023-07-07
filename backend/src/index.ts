@@ -17,7 +17,7 @@ import {
 } from "./middleware";
 
 import path from "path";
-import { FilesName } from "./models/FilesName";
+import { Files } from "./models/FilesName";
 
 dotenv.config();
 
@@ -64,7 +64,7 @@ Users.sync().then(() => {
 
 Department.sync();
 Subject.sync();
-FilesName.sync();
+Files.sync();
 
 app.use("/api/users", new UserRoutes().getRouter());
 app.use("/api/departments", new DepartmentRoutes().getRouter());
@@ -105,7 +105,7 @@ app.post(
       });
       const fileNames = Object.keys(files).map((key) => files[key].name);
       try {
-        await FilesName.bulkCreate(fileNames.map((fileName) => ({ fileName })));
+        await Files.bulkCreate(fileNames.map((fileName) => ({ fileName })));
         list_of_files.push(...fileNames);
         return res.json({
           status: "logged ",
@@ -132,7 +132,7 @@ app.post(
 // });
 app.get("/api/files", async (req, res) => {
   try {
-    const fileNames = await FilesName.findAll({
+    const fileNames = await Files.findAll({
       attributes: ["fileName"],
       raw: true,
     });

@@ -1,12 +1,12 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
 
-export class FilesName extends Model {
+export class Files extends Model {
   fileName: any;
   file_name: any;
 }
 
-FilesName.init(
+Files.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -21,7 +21,7 @@ FilesName.init(
   },
   {
     sequelize,
-    modelName: "FilesName",
+    modelName: "files",
     timestamps: true,
     underscored: true,
   }
