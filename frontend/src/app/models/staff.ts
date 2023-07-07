@@ -4,5 +4,5 @@ export interface Staff {
   email: string;
   password: string;
   deptId: number;
-  deptName: string;
+  departmentName: string;
 }

@@ -1,39 +1,51 @@
 <div class="flex items-center gap-4 mb-4">
-  <!-- *ngIf="user.role !== 'ADMIN' && user.role !== 'STUDENT'" -->
   <nz-upload
+    *ngIf="user.role === 'ADMIN' || user.role === 'STAFF'"
     [nzAction]="uploadUrl"
     [nzCustomRequest]=""
-    (nzChange)="handleChange($event)"
+    (nzChange)="upload($event)"
   >
     <button nz-button>
       <span nz-icon nzType="upload"></span>
       Click to Upload
     </button>
   </nz-upload>
-  <nz-select
-    class="w-[200px]"
-    nzPlaceHolder="Select department"
-    [(ngModel)]="selectedDepartment"
-    (ngModelChange)="getFiles()"
+  <button
+    *ngIf="user.role === 'ADMIN'"
+    nz-button
+    nz-popover
+    #popoverRef="nzPopover"
+    nzPopoverTrigger="click"
+    nzPopoverPlacement="bottomLeft"
+    [nzPopoverContent]="contentTemplate"
   >
-    <nz-option
-      *ngFor="let d of departments"
-      [nzValue]="d.id"
-      [nzLabel]="d.name"
-    ></nz-option>
-  </nz-select>
+    <span nz-icon nzType="filter"></span>
+    Filter
+  </button>
 </div>
 
 <div class="flex flex-wrap gap-4 mt-8" *ngIf="user.role === 'STUDENT'">
   <div *ngFor="let file of files" class="flex flex-col items-center">
-    <span class="text-lg font-medium">{{ file.fileName }}</span>
-    <iframe
-      [src]="trustedUrl('http://localhost:3000/' + file.fileName)"
-      width="400px"
-      height="450px"
-    ></iframe>
+    <div class="flex gap-5">
+      <span class="text-lg font-medium">{{ file.fileName }}</span>
+      <a [href]="'http://localhost:3000/' + file.fileName" target="_blank">
+        <button nz-button nzSize="small">
+          <span nz-icon nzType="eye"></span>
+        </button>
+      </a>
+      <button nz-button nzSize="small" (click)="downloadPdf(file.fileName)">
+        <span nz-icon nzType="download"></span>
+      </button>
+    </div>
+    <pdf-viewer
+      [src]="'http://localhost:3000/' + file.fileName"
+      [render-text]="true"
+      [original-size]="false"
+      class="w-[400px] h-[450px] border border-gray-300"
+    ></pdf-viewer>
   </div>
 </div>
+
 <div
   *ngIf="user.role === 'ADMIN' || user.role === 'STAFF'"
   class="flex flex-wrap gap-4"
@@ -42,14 +54,51 @@
     *ngFor="let file of files"
     class="flex flex-col gap-3 p-3 border border-gray-100 max-w-max"
   >
-    <a
-      [href]="trustedUrl('http://localhost:3000/' + file.fileName)"
-      target="_blank"
-      >{{ file.fileName }}</a
-    >
+    <a [href]="'http://localhost:3000/' + file.fileName" target="_blank">{{
+      file.fileName
+    }}</a>
     <div>
       <nz-tag nzColor="blue">{{ file.userName }}</nz-tag>
       <nz-tag nzColor="red">{{ file.departmentName }}</nz-tag>
     </div>
   </div>
 </div>
+
+<ng-template #contentTemplate>
+  <div class="w-[300px] flex flex-col gap-4">
+    <div>
+      <span class="w-full text-gray-500">Department</span>
+      <hr class="my-1 mb-2" />
+      <nz-radio-group [(ngModel)]="tempFilter.department">
+        <label nz-radio [nzValue]="dept.id" *ngFor="let dept of departments">{{
+          dept.name
+        }}</label>
+      </nz-radio-group>
+    </div>
+    <div>
+      <span class="w-full text-gray-500">Users</span>
+      <hr class="my-1 mb-2" />
+      <nz-radio-group [(ngModel)]="tempFilter.user">
+        <label nz-radio [nzValue]="u.id" *ngFor="let u of users">{{
+          u.name
+        }}</label>
+      </nz-radio-group>
+    </div>
+    <div>
+      <hr class="my-1 mb-2" />
+      <div class="flex justify-end gap-4">
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="saveFilter()"
+        >
+          Save
+        </button>
+        <button nz-button nzSize="small" (click)="cancelFilter()">
+          cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

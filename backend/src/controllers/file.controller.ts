@@ -8,9 +8,15 @@ import { Sequelize } from "sequelize";
 export class FileController {
   constructor() {}
 
-  async get(req: Request, res: Response) {
-    const deptId = Number(req.query.deptId);
-    const userId = Number(req.query.userId);
+  async get(req: any, res: Response) {
+    let deptId = Number(req.query.deptId);
+    let userId = Number(req.query.userId);
+
+    if (req.user?.role !== "ADMIN") {
+      deptId = req.user.deptId;
+      if (req.user.role === "STAFF") userId = req.user.userId;
+    }
+
     try {
       let where = {};
       if (deptId > 0) {

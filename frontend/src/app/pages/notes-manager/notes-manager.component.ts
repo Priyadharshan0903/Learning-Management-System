@@ -1,10 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 import { environment } from 'src/environments/environment';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Department } from 'src/app/models';
+import { NzPopoverDirective } from 'ng-zorro-antd/popover';
+import { Staff } from 'src/app/models';
+
+interface Filter {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-notes-manager',
@@ -14,21 +19,28 @@ import { Department } from 'src/app/models';
 export class NotesManagerComponent implements OnInit {
   user = JSON.parse(String(localStorage.getItem('user')));
 
+  @ViewChild(NzPopoverDirective, { static: false }) popover: NzPopoverDirective;
+
   uploadUrl = `${environment.apiUrl}/files/upload`;
 
   files: any[];
 
-  departments: Department[] = [{ id: -1, name: 'All' }];
-  selectedDepartment = -1;
+  departments: Filter[] = [{ id: -1, name: 'All' }];
+  users: Filter[] = [{ id: -1, name: 'All' }];
 
-  trustedUrl = (url: string) =>
-    this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  tempFilter = {
+    department: -1,
+    user: -1,
+  };
 
-  constructor(
-    private http: HttpClient,
-    private msg: NzMessageService,
-    private sanitizer: DomSanitizer
-  ) {}
+  selectedDepartment: any = -1;
+  selectedUser = -1;
+
+  constructor(private http: HttpClient, private msg: NzMessageService) {}
+
+  log(value: object[]): void {
+    console.log(value);
+  }
 
   ngOnInit(): void {
     this.http.get(`${environment.apiUrl}/departments`).subscribe({
@@ -36,10 +48,32 @@ export class NotesManagerComponent implements OnInit {
         this.departments = [...this.departments, ...data];
       },
     });
+    this.http.get<Staff[]>(`${environment.apiUrl}/users`).subscribe({
+      next: (data: Staff[]) => {
+        data.forEach((user) => {
+          this.users.push({
+            id: user.id,
+            name: user.name,
+          });
+        });
+      },
+    });
     this.getFiles();
   }
 
-  handleChange(info: NzUploadChangeParam): void {
+  getFiles() {
+    this.http
+      .get(
+        `${environment.apiUrl}/files?deptId=${this.selectedDepartment}&userId=${this.selectedUser}`
+      )
+      .subscribe({
+        next: (data: any) => {
+          this.files = data;
+        },
+      });
+  }
+
+  upload(info: NzUploadChangeParam): void {
     if (info.file.status !== 'uploading') {
       console.log(info.file, info.fileList);
     }
@@ -51,13 +85,31 @@ export class NotesManagerComponent implements OnInit {
     }
   }
 
-  getFiles() {
+  saveFilter() {
+    this.popover.hide();
+    this.selectedDepartment = this.tempFilter.department;
+    this.selectedUser = this.tempFilter.user;
+    this.getFiles();
+  }
+
+  cancelFilter() {
+    this.tempFilter.department = this.selectedDepartment;
+    this.tempFilter.user = this.selectedUser;
+    this.popover.hide();
+  }
+
+  downloadPdf(fileName: string) {
+    const url = 'http://localhost:3000/' + fileName;
     this.http
-      .get(`${environment.apiUrl}/files?deptId=${this.selectedDepartment}`)
-      .subscribe({
-        next: (data: any) => {
-          this.files = data;
-        },
+      .get(url, {
+        responseType: 'blob',
+      })
+      .subscribe((response) => {
+        const blob = new Blob([response], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
       });
   }
 }

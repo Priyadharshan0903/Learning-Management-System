@@ -30,7 +30,7 @@ export class UserRoutes {
     );
 
     //! Register
-    this.router.post("/register", (req, res) => this.controller.post(req, res));
+    this.router.post("/", (req, res) => this.controller.post(req, res));
 
     // //! Login
     this.router.post("/login", (req, res) => this.controller.login(req, res));

@@ -20,14 +20,12 @@ export class StudentController {
   }
 
   // GET ALL
-
   async getAll(req: Request, res: Response) {
     const student = await this.studentService.getAll();
     return res.status(200).json(student);
   }
 
   // GET BY ID
-
   async getById(req: Request, res: Response) {
     const { id } = req.params;
     const student = await this.studentService.get(id);
@@ -37,8 +35,7 @@ export class StudentController {
     return res.status(404).json({ error: "Student not found" });
   }
 
-  //UPDATE students
-
+  // UPDATE students
   async update(req: Request, res: Response) {
     const { id } = req.params;
     const { name } = req.body;
@@ -51,8 +48,7 @@ export class StudentController {
     return res.status(404).json({ error: "Student not found" });
   }
 
-  //DELETE students
-
+  // DELETE students
   async delete(req: Request, res: Response) {
     const { id } = req.params;
     const student = await this.studentService.get(id);

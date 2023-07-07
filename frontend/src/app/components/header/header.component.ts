@@ -39,7 +39,6 @@ export class HeaderComponent implements OnInit {
     }, 1000);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.router.navigateByUrl('/login');
   }
 
   handleCancel(): void {

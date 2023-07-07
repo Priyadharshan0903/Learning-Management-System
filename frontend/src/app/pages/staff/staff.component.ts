@@ -67,18 +67,13 @@ export class StaffComponent implements OnInit {
       });
     }
     this.isLoading = !this.isLoading;
-    this.http
-      .get<{ data: Staff[]; totalItems: number }>(
-        `${environment.apiUrl}/staff/page`,
-        { params }
-      )
-      .subscribe({
-        next: (res: { data: Staff[]; totalItems: number }) => {
-          this.isLoading = !this.isLoading;
-          this.staff = res.data;
-          this.total = res.totalItems;
-        },
-      });
+    this.http.get<Staff[]>(`${environment.apiUrl}/users`).subscribe({
+      next: (res: Staff[]) => {
+        console.log(res);
+        this.isLoading = !this.isLoading;
+        this.staff = res;
+      },
+    });
   }
 
   deleteStaff(id: number) {

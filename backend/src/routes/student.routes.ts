@@ -1,8 +1,8 @@
 import { Request, Response, Router } from "express";
 import { verifyToken } from "../middleware";
-import { StudentController } from "../controllers/Student.controller";
+import { StudentController } from "../controllers/student.controller";
 
-export class DepartmentRoutes {
+export class StudentRoutes {
   private router: Router;
   private controller: StudentController;
 

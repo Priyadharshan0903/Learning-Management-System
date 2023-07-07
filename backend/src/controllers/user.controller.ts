@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { User } from "../models";
+import { Department, User } from "../models";
 import { UserService } from "../services/users.service";
 
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { Op } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 
 export class UserController {
   private userService: UserService;
@@ -54,9 +54,17 @@ export class UserController {
     let options = {
       attributes: {
         exclude: ["password"],
+        include: [[Sequelize.col("department.name"), "departmentName"]],
       },
+      include: [
+        {
+          model: Department,
+          as: "department",
+          attributes: [],
+        },
+      ],
       where: {
-        [Op.not]: [{ role: "ADMIN" }],
+        [Op.not]: [{ role: ["ADMIN", "STUDENT"] }],
       },
     };
     this.userService
@@ -86,7 +94,7 @@ export class UserController {
   }
 
   post(req: Request, res: Response) {
-    const { name, email, password, deptId } = req.body;
+    const { name, email, deptId } = req.body;
     // TODO: Validate fields before creating user
 
     this.userService
@@ -95,7 +103,7 @@ export class UserController {
         if (user)
           return res.status(400).json({ message: "User already exists" });
         else {
-          bcrypt.hash(password, 10).then((hashPassword) => {
+          bcrypt.hash("user@123", 10).then((hashPassword) => {
             let newUser = new User({
               name,
               email,

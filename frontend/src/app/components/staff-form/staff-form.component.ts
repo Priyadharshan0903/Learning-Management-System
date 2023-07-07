@@ -29,7 +29,7 @@ export class StaffFormComponent {
     this.staffIdChange.emit(id);
     if (id > 0)
       this.http
-        .get(`${environment.apiUrl}/staff/${id}`)
+        .get(`${environment.apiUrl}/users/${id}`)
         .subscribe((data: any) => {
           this.form.patchValue(data);
         });
@@ -69,7 +69,7 @@ export class StaffFormComponent {
     if (this.form.valid) {
       if (this.staffId === -1)
         this.http
-          .post(`${environment.apiUrl}/staff`, this.form.value)
+          .post(`${environment.apiUrl}/users`, this.form.value)
           .subscribe((data: any) => {
             this.message.success('Staff added successfully');
             this.form.reset();
@@ -77,7 +77,7 @@ export class StaffFormComponent {
           });
       else
         this.http
-          .put(`${environment.apiUrl}/staff/${this.staffId}`, {
+          .put(`${environment.apiUrl}/users/${this.staffId}`, {
             id: this.staffId,
             ...this.form.value,
           })

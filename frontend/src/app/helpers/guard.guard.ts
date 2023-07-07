@@ -37,21 +37,7 @@ export class LoginGuard implements CanActivate {
     return true;
   }
 }
-@Injectable({ providedIn: 'root' })
-export class StudentGuard implements CanActivate {
-  constructor(private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    let user = JSON.parse(String(localStorage.getItem('user')));
-
-    if (user.role === 'STUDENT') {
-      this.router.navigate(['/']);
-      return false;
-    }
-
-    return true;
-  }
-}
 @Injectable({ providedIn: 'root' })
 export class AdminGuard implements CanActivate {
   constructor(private router: Router) {}

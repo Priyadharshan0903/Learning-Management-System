@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BaseLayoutComponent } from './pages/base-layout/base-layout.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { NotesManagerComponent } from './pages/notes-manager/notes-manager.component';
-import { AuthGuard, StudentGuard } from './helpers/guard.guard';
+import { AuthGuard } from './helpers/guard.guard';
 import { DepartmentsComponent } from './pages/departments/departments.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { StaffComponent } from './pages/staff/staff.component';
@@ -18,7 +18,7 @@ const routes: Routes = [
       {
         path: 'notes',
         component: NotesManagerComponent,
-        canActivate: [AuthGuard, StudentGuard],
+        canActivate: [AuthGuard],
         data: { breadcrumb: 'Notes' },
       },
       {

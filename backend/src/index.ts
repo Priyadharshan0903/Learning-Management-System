@@ -9,7 +9,7 @@ import { UserService } from "./services/users.service";
 
 import bcrypt from "bcryptjs";
 
-import { FileRoutes, SubjectRoutes, UserRoutes } from "./routes";
+import { FileRoutes, StudentRoutes, SubjectRoutes, UserRoutes } from "./routes";
 import { DepartmentRoutes } from "./routes/department.routes";
 
 import { File } from "./models/files";
@@ -73,6 +73,7 @@ Student.sync();
 app.use("/api/users", new UserRoutes().getRouter());
 app.use("/api/departments", new DepartmentRoutes().getRouter());
 app.use("/api/subjects", new SubjectRoutes().getRouter());
+app.use("/api/students", new StudentRoutes().getRouter());
 app.use("/api/files", new FileRoutes().getRouter());
 
 app.listen(port, () => {
