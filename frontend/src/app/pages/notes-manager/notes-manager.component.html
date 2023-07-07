@@ -4,9 +4,45 @@
     Click to Upload
   </button>
 </nz-upload>
-
-<iframe
-  src="http://localhost:3000/Ramanan-resume.pdf"
-  width="400px"
-  height="450px"
-></iframe>
+<div class="flex gap-4 mt-8">
+  <iframe
+    src="http://localhost:3000/Ramanan-Resume.pdf"
+    width="400px"
+    class="border-2 border-gray-700"
+    height="450px"
+  ></iframe>
+  <iframe
+    src="http://localhost:3000/CV.pdf"
+    class="border-2 border-gray-700"
+    width="400px"
+    height="450px"
+  ></iframe>
+  <iframe
+    src="http://localhost:3000/CSS transitions and animations.pdf"
+    class="border-2 border-gray-700"
+    width="400px"
+    height="450px"
+  ></iframe>
+</div>
+<!-- <div>
+  <nz-list
+    [nzDataSource]="files"
+    [nzRenderItem]="item"
+    [nzItemLayout]="'horizontal'"
+  >
+    <ng-template #item let-item>
+      <nz-list-item>
+        <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription">
+          <ng-template #nzTitle>
+            <a href="{{ item.files.fileName }}" target="_blank">{{
+              item.files.fileName
+            }}</a>
+          </ng-template>
+          <ng-template #nzDescription>
+            <nz-tag nzColor="blue">{{ item.files.fileType }}</nz-tag>
+          </ng-template>
+        </nz-list-item-meta>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</div> -->

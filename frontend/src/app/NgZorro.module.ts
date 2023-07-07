@@ -15,6 +15,8 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
   exports: [
@@ -33,6 +35,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzSelectModule,
     NzMessageModule,
     NzDatePickerModule,
+    NzListModule,
+    NzTagModule,
   ],
 })
 export class NgZorroModule {}

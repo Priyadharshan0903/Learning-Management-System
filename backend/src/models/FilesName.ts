@@ -1,7 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
 
-export class FilesName extends Model {}
+export class FilesName extends Model {
+  fileName: any;
+  file_name: any;
+}
 
 FilesName.init(
   {

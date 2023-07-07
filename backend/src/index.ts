@@ -98,7 +98,6 @@ app.post(
     if (files) {
       Object.keys(files).forEach((key) => {
         const filepath = path.join(__dirname, "files", files[key].name);
-        console.log(files);
         files[key].mv(filepath, (err: any) => {
           if (err)
             return res.status(500).json({ status: "error", message: err });
