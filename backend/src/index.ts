@@ -70,40 +70,40 @@ app.use("/api/users", new UserRoutes().getRouter());
 app.use("/api/departments", new DepartmentRoutes().getRouter());
 app.use("/api/subjects", new SubjectRoutes().getRouter());
 
-// app.post(
-//   "/api/upload",
-//   fileUpload({ createParentPath: true }),
-//   filesPayloadExists,
-//   fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
-//   fileSizeLimiter,
-//   (req, res) => {
-//     const files: any = req.files;
-//     if (files)
-//       Object.keys(files).forEach((key) => {
-//         const filepath = path.join(__dirname, "files", files[key].name);
-//         console.log(files);
-//         files[key].mv(filepath, (err: any) => {
-//           if (err)
-//             return res.status(500).json({ status: "error", message: err });
-//         });
-//         list_of_files.push(files[key].name);
-//       });
-//     console.log(list_of_files);
-//     return res.json({
-//       status: "logged ",
-//       message: Object.keys(files).toString(),
-//     });
-//   }
-// );
 app.post(
   "/api/upload",
   fileUpload({ createParentPath: true }),
   filesPayloadExists,
   fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
   fileSizeLimiter,
+  //     if (files)
+  //       Object.keys(files).forEach((key) => {
+  //         const filepath = path.join(__dirname, "files", files[key].name);
+  //         console.log(files);
+  //         files[key].mv(filepath, (err: any) => {
+  //           if (err)
+  //             return res.status(500).json({ status: "error", message: err });
+  //         });
+  //         list_of_files.push(files[key].name);
+  //       });
+  //     console.log(list_of_files);
+  //     return res.json({
+  //       status: "logged ",
+  //       message: Object.keys(files).toString(),
+  //     });
+  //   }
+  // );
   async (req, res) => {
     const files: any = req.files;
     if (files) {
+      Object.keys(files).forEach((key) => {
+        const filepath = path.join(__dirname, "files", files[key].name);
+        console.log(files);
+        files[key].mv(filepath, (err: any) => {
+          if (err)
+            return res.status(500).json({ status: "error", message: err });
+        });
+      });
       const fileNames = Object.keys(files).map((key) => files[key].name);
       try {
         await FilesName.bulkCreate(fileNames.map((fileName) => ({ fileName })));
