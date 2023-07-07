@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
+import { verify, decode } from "jsonwebtoken";
 
 const config = process.env.TOKEN_KEY ? process.env.TOKEN_KEY : "";
 
@@ -14,7 +14,7 @@ export const verifyToken = (req: any, res: Response, next: NextFunction) => {
   }
   try {
     const decoded = verify(token, config);
-    req.user = decoded;
+    req.user = decode(token, { complete: true })?.payload;
   } catch (err) {
     return res.status(401).send("Invalid Token");
   }

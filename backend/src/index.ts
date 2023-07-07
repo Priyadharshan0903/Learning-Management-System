@@ -14,6 +14,7 @@ import {
   fileExtLimiter,
   fileSizeLimiter,
   filesPayloadExists,
+  verifyToken,
 } from "./middleware";
 
 import path from "path";
@@ -24,8 +25,6 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
-
-const list_of_files: any[] = [];
 
 let corsOptions: CorsOptions = {
   origin: "http://localhost:4200",
@@ -84,48 +83,31 @@ app.use("/api/subjects", new SubjectRoutes().getRouter());
 
 app.post(
   "/api/upload",
+  verifyToken,
   fileUpload({ createParentPath: true }),
   filesPayloadExists,
   fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
   fileSizeLimiter,
-  //     if (files)
-  //       Object.keys(files).forEach((key) => {
-  //         const filepath = path.join(__dirname, "files", files[key].name);
-  //         console.log(files);
-  //         files[key].mv(filepath, (err: any) => {
-  //           if (err)
-  //             return res.status(500).json({ status: "error", message: err });
-  //         });
-  //         list_of_files.push(files[key].name);
-  //       });
-  //     console.log(list_of_files);
-  //     return res.json({
-  //       status: "logged ",
-  //       message: Object.keys(files).toString(),
-  //     });
-  //   }
-  // );
 
-  async (req, res) => {
+  async (req: any, res) => {
     const files: any = req.files;
-    const token = req.headers;
-    console.log(token);
-    // if (!user) {
-    //   return res.status(401).json({ status: "error", message: "Unauthorized" });
-    // }
-
     if (files) {
-      Object.keys(files).forEach((key) => {
-        const filepath = path.join(__dirname, "files", files[key].name);
-        files[key].mv(filepath, (err: any) => {
-          if (err)
-            return res.status(500).json({ status: "error", message: err });
-        });
-      });
       const fileNames = Object.keys(files).map((key) => files[key].name);
       try {
-        await Files.bulkCreate(fileNames.map((fileName) => ({ fileName })));
-        list_of_files.push(...fileNames);
+        await Files.bulkCreate(
+          fileNames.map((fileName) => ({
+            fileName,
+            deptId: req.user.deptId,
+            userId: req.user.userId,
+          }))
+        );
+        Object.keys(files).forEach((key) => {
+          const filepath = path.join(__dirname, "files", files[key].name);
+          files[key].mv(filepath, (err: any) => {
+            if (err)
+              return res.status(500).json({ status: "error", message: err });
+          });
+        });
         return res.json({
           message: Object.keys(files).toString(),
         });
