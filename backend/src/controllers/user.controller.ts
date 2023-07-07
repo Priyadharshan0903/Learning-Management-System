@@ -7,7 +7,6 @@ import jwt from "jsonwebtoken";
 import { Op } from "sequelize";
 
 export class UserController {
-  [x: string]: any;
   private userService: UserService;
   constructor() {
     this.userService = new UserService(User);
@@ -87,8 +86,9 @@ export class UserController {
   }
 
   post(req: Request, res: Response) {
-    const { name, email, password, department } = req.body;
+    const { name, email, password, deptId } = req.body;
     // TODO: Validate fields before creating user
+
     this.userService
       .find({ where: { email } })
       .then((user: any) => {
@@ -99,9 +99,9 @@ export class UserController {
             let newUser = new User({
               name,
               email,
-              department,
+              deptId,
               password: hashPassword,
-              role: "STUDENT",
+              role: "STAFF",
             });
 
             this.userService

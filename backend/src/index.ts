@@ -2,23 +2,16 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 import { sequelize } from "./db";
-import { User } from "./models";
+
+import { User, Student, Department, Subject } from "./models";
+
 import { UserService } from "./services/users.service";
+
 import bcrypt from "bcryptjs";
+
 import { FileRoutes, SubjectRoutes, UserRoutes } from "./routes";
 import { DepartmentRoutes } from "./routes/department.routes";
-import { Department } from "./models/department";
-import { Subject } from "./models/subjects";
-import fileUpload from "express-fileupload";
-import {
-  fileExtLimiter,
-  fileSizeLimiter,
-  filesPayloadExists,
-  verifyToken,
-} from "./middleware";
 
-import fs from "fs";
-import path from "path";
 import { File } from "./models/files";
 import { DepartmentService } from "./services/department.service";
 
@@ -75,6 +68,7 @@ Department.sync().then(() => {
 });
 Subject.sync();
 File.sync();
+Student.sync();
 
 app.use("/api/users", new UserRoutes().getRouter());
 app.use("/api/departments", new DepartmentRoutes().getRouter());

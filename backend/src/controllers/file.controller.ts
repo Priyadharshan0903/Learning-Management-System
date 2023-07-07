@@ -10,11 +10,17 @@ export class FileController {
 
   async get(req: Request, res: Response) {
     const deptId = Number(req.query.deptId);
+    const userId = Number(req.query.userId);
     try {
       let where = {};
       if (deptId > 0) {
         where = { deptId };
       }
+
+      if (userId > 0) {
+        where = { ...where, userId };
+      }
+
       const files = await File.findAll({
         attributes: [
           "fileName",
@@ -23,7 +29,11 @@ export class FileController {
         ],
         include: [
           { model: User, as: "user", attributes: [] },
-          { model: Department, as: "department", attributes: [] },
+          {
+            model: Department,
+            as: "department",
+            attributes: [],
+          },
         ],
         order: [["createdAt", "ASC"]],
         where,
