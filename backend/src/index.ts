@@ -17,6 +17,7 @@ import {
   verifyToken,
 } from "./middleware";
 
+import fs from "fs";
 import path from "path";
 import { Files } from "./models/files";
 import { DepartmentService } from "./services/department.service";
@@ -137,6 +138,27 @@ app.get("/api/files", async (req, res) => {
     return res
       .status(500)
       .json({ status: "error", message: "Failed to fetch file names" });
+  }
+});
+app.delete("/api/files/:fileName", async (req, res) => {
+  try {
+    const fileName = req.params.fileName;
+    await Files.destroy({ where: { fileName } });
+    const filepath = path.join(__dirname, "files", fileName);
+    fs.unlink(filepath, (err: any) => {
+      if (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .json({ status: "error", message: "Failed to delete file" });
+      }
+    });
+    return res.json({ status: "success", message: "File deleted" });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ status: "error", message: "Failed to delete file" });
   }
 });
 
