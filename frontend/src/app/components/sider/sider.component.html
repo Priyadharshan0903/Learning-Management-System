@@ -1,22 +1,37 @@
 <ul nz-menu nzMode="inline" nzTheme="dark">
-  <li nz-menu-item class="font-semibold text-lg flex gap-2.5" nzMatchRouter>
-    <i nz-icon nzTheme="outline" nzType="dashboard"></i>
-    <a>Dashboard</a>
-  </li>
-  <li nz-menu-item class="font-semibold text-lg flex gap-2.5" nzMatchRouter>
-    <i nz-icon nzTheme="outline" nzType="team"></i>
-    <a routerLink="staff">Staff</a>
-  </li>
-  <li nz-menu-item class="font-semibold text-lg flex gap-2.5" nzMatchRouter>
-    <i nz-icon nzTheme="outline" nzType="team"></i>
-    <a routerLink="students">Students</a>
-  </li>
-  <li nz-menu-item class="font-semibold text-lg flex gap-2.5" nzMatchRouter>
-    <i nz-icon nzTheme="outline" nzType="build"></i>
-    <a routerLink="departments">Departments</a>
-  </li>
-  <li nz-menu-item class="font-semibold text-lg flex gap-2.5" nzMatchRouter>
-    <i nz-icon nzTheme="outline" nzType="folder-open"></i>
-    <a routerLink="notes">Notes Manager</a>
-  </li>
+  <ng-container
+    *ngTemplateOutlet="menuTpl; context: { $implicit: menus }"
+  ></ng-container>
+  <ng-template #menuTpl let-menus>
+    <ng-container *ngFor="let menu of menus">
+      <li
+        *ngIf="!menu.children"
+        nz-menu-item
+        [nzPaddingLeft]="menu.level * 24"
+        [nzDisabled]="menu.disabled"
+        [nzSelected]="menu.selected"
+        nzMatchRouter
+      >
+        <span nz-icon [nzType]="menu.icon" *ngIf="menu.icon"></span>
+        <span
+          ><a [routerLink]="menu.link">{{ menu.title }}</a></span
+        >
+      </li>
+      <li
+        *ngIf="menu.children"
+        nz-submenu
+        [nzPaddingLeft]="menu.level * 24"
+        [nzOpen]="menu.open"
+        [nzTitle]="menu.title"
+        [nzIcon]="menu.icon"
+        [nzDisabled]="menu.disabled"
+      >
+        <ul>
+          <ng-container
+            *ngTemplateOutlet="menuTpl; context: { $implicit: menu.children }"
+          ></ng-container>
+        </ul>
+      </li>
+    </ng-container>
+  </ng-template>
 </ul>

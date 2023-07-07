@@ -16,23 +16,22 @@ export class DepartmentRoutes {
       this.controller.create(req, res)
     );
 
-    // GET All departmnet
-
+    // GET All Department
     this.router.get("/", verifyToken, (req, res) =>
       this.controller.getAll(req, res)
     );
 
-    // GET a department by Id
+    // GET Department by Id
     this.router.get("/:id", verifyToken, (req, res) =>
       this.controller.getById(req, res)
     );
 
-    //UPDATE a department
-    this.router.put("/:id", verifyToken, (req, res) => {
-      this.controller.update(req, res);
-    });
+    // UPDATE Department
+    this.router.put("/:id", verifyToken, (req, res) =>
+      this.controller.update(req, res)
+    );
 
-    //DELETE a department
+    // DELETE Department
     this.router.delete("/:id", verifyToken, (req, res) =>
       this.controller.delete(req, res)
     );

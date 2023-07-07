@@ -1,6 +1,6 @@
 import { Request, Response, Router } from "express";
 import { verifyToken } from "../middleware";
-import { SubjectController } from "../controllers/Subjects.controller";
+import { SubjectController } from "../controllers";
 
 export class SubjectRoutes {
   private router: Router;

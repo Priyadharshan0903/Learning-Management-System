@@ -53,7 +53,7 @@ export class DepartmentsComponent implements OnInit {
           });
       else
         this.http
-          .put(`${environment.apiUrl}/departments`, department)
+          .put(`${environment.apiUrl}/departments/${this.id}`, department)
           .subscribe({
             next: (data) => this.reset(),
             error: console.error,

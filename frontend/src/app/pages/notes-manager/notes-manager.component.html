@@ -1,48 +1,55 @@
-<nz-upload [nzAction]="uploadUrl" (nzChange)="handleChange($event)">
-  <button nz-button>
-    <span nz-icon nzType="upload"></span>
-    Click to Upload
-  </button>
-</nz-upload>
-<div class="flex gap-4 mt-8">
-  <iframe
-    src="http://localhost:3000/Ramanan-Resume.pdf"
-    width="400px"
-    class="border-2 border-gray-700"
-    height="450px"
-  ></iframe>
-  <iframe
-    src="http://localhost:3000/CV.pdf"
-    class="border-2 border-gray-700"
-    width="400px"
-    height="450px"
-  ></iframe>
-  <iframe
-    src="http://localhost:3000/CSS transitions and animations.pdf"
-    class="border-2 border-gray-700"
-    width="400px"
-    height="450px"
-  ></iframe>
-</div>
-<!-- <div>
-  <nz-list
-    [nzDataSource]="files"
-    [nzRenderItem]="item"
-    [nzItemLayout]="'horizontal'"
+<div class="flex items-center gap-4 mb-4">
+  <!-- *ngIf="user.role !== 'ADMIN' && user.role !== 'STUDENT'" -->
+  <nz-upload
+    [nzAction]="uploadUrl"
+    [nzCustomRequest]=""
+    (nzChange)="handleChange($event)"
   >
-    <ng-template #item let-item>
-      <nz-list-item>
-        <nz-list-item-meta [nzTitle]="nzTitle" [nzDescription]="nzDescription">
-          <ng-template #nzTitle>
-            <a href="{{ item.files.fileName }}" target="_blank">{{
-              item.files.fileName
-            }}</a>
-          </ng-template>
-          <ng-template #nzDescription>
-            <nz-tag nzColor="blue">{{ item.files.fileType }}</nz-tag>
-          </ng-template>
-        </nz-list-item-meta>
-      </nz-list-item>
-    </ng-template>
-  </nz-list>
-</div> -->
+    <button nz-button>
+      <span nz-icon nzType="upload"></span>
+      Click to Upload
+    </button>
+  </nz-upload>
+  <nz-select
+    class="w-[200px]"
+    nzPlaceHolder="Select department"
+    [(ngModel)]="selectedDepartment"
+    (ngModelChange)="getFiles()"
+  >
+    <nz-option
+      *ngFor="let d of departments"
+      [nzValue]="d.id"
+      [nzLabel]="d.name"
+    ></nz-option>
+  </nz-select>
+</div>
+
+<div class="flex flex-wrap gap-4 mt-8" *ngIf="user.role === 'STUDENT'">
+  <div *ngFor="let file of files" class="flex flex-col items-center">
+    <span class="text-lg font-medium">{{ file.fileName }}</span>
+    <iframe
+      [src]="trustedUrl('http://localhost:3000/' + file.fileName)"
+      width="400px"
+      height="450px"
+    ></iframe>
+  </div>
+</div>
+<div
+  *ngIf="user.role === 'ADMIN' || user.role === 'STAFF'"
+  class="flex flex-wrap gap-4"
+>
+  <div
+    *ngFor="let file of files"
+    class="flex flex-col gap-3 p-3 border border-gray-100 max-w-max"
+  >
+    <a
+      [href]="trustedUrl('http://localhost:3000/' + file.fileName)"
+      target="_blank"
+      >{{ file.fileName }}</a
+    >
+    <div>
+      <nz-tag nzColor="blue">{{ file.userName }}</nz-tag>
+      <nz-tag nzColor="red">{{ file.departmentName }}</nz-tag>
+    </div>
+  </div>
+</div>

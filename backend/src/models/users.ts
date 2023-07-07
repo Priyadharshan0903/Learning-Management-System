@@ -2,11 +2,9 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
 import { Department } from "./department";
 
-export class Users extends Model {
-  static role: string;
-}
+export class User extends Model {}
 
-Users.init(
+User.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -58,12 +56,12 @@ Users.init(
   }
 );
 
-Users.belongsTo(Department, {
+User.belongsTo(Department, {
   foreignKey: "deptId",
   as: "department",
 });
 
-Department.hasMany(Users, {
+Department.hasMany(User, {
   foreignKey: "deptId",
   as: "users",
 });

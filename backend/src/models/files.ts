@@ -1,14 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
 import { Department } from "./department";
-import { Users } from "./users";
+import { User } from "./users";
 
-export class Files extends Model {
-  fileName: any;
-  file_name: any;
-}
+export class File extends Model {}
 
-Files.init(
+File.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,7 +28,7 @@ Files.init(
     userId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Users,
+        model: User,
         key: "id",
       },
     },
@@ -44,5 +41,5 @@ Files.init(
   }
 );
 
-Files.belongsTo(Department, { foreignKey: "deptId" });
-Files.belongsTo(Users, { foreignKey: "userId" });
+File.belongsTo(Department, { foreignKey: "deptId", as: "department" });
+File.belongsTo(User, { foreignKey: "userId", as: "user" });

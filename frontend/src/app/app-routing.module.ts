@@ -13,26 +13,31 @@ const routes: Routes = [
     path: '',
     component: BaseLayoutComponent,
     canActivate: [AuthGuard],
+    data: { breadcrumb: 'Home' },
     children: [
       {
         path: 'notes',
         component: NotesManagerComponent,
         canActivate: [AuthGuard, StudentGuard],
+        data: { breadcrumb: 'Notes' },
       },
       {
         path: 'departments',
         component: DepartmentsComponent,
         canActivate: [AuthGuard],
+        data: { breadcrumb: 'Departments' },
       },
       {
         path: 'staff',
         component: StaffComponent,
         canActivate: [AuthGuard],
+        data: { breadcrumb: 'Staff' },
       },
       {
         path: 'students',
         component: StudentsComponent,
         canActivate: [AuthGuard],
+        data: { breadcrumb: 'Students' },
       },
     ],
   },

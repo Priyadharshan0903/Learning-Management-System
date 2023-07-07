@@ -1,4 +1,4 @@
-import { Users } from "../models";
+import { User } from "../models";
 import { IRepository } from "./service";
 
-export class UserService extends IRepository<Users> {}
+export class UserService extends IRepository<User> {}

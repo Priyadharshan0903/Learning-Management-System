@@ -6,21 +6,17 @@
     <app-sider></app-sider>
   </div>
   <div class="flex flex-col relative w-full">
-    <div class="justify-end pb-2">
-      <app-header></app-header>
-    </div>
+    <app-header></app-header>
     <nz-layout class="h-screen flex-shrink overflow-y-scroll">
       <nz-content>
-        <div class="flex flex-row justify-between">
-          <div class="hidden md:block">
-            <nz-breadcrumb class="pb-4">
-              <nz-breadcrumb-item>Home</nz-breadcrumb-item>
-              <nz-breadcrumb-item>Organizations</nz-breadcrumb-item>
-              <nz-breadcrumb-item>PEC</nz-breadcrumb-item>
-            </nz-breadcrumb>
-          </div>
+        <div class="hidden md:block">
+          <nz-breadcrumb class="p-4" [nzAutoGenerate]="true">
+            <nz-breadcrumb-item>
+              <span nz-icon nzType="home"></span>
+            </nz-breadcrumb-item>
+          </nz-breadcrumb>
         </div>
-        <div class="min-h-max bg-white m-4 p-6">
+        <div class="min-h-max bg-white m-4 mt-0 p-6">
           <router-outlet outlet="#outlet"></router-outlet>
         </div>
       </nz-content>

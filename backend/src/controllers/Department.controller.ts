@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
-import { Department } from "../../src/models/department";
-import { DepartmentService } from "../services/department.service";
 import { Op } from "sequelize";
+
+import { Department } from "../models";
+import { DepartmentService } from "../services";
+
 export class DepartmentController {
   private departmentService: DepartmentService;
 
@@ -9,40 +11,39 @@ export class DepartmentController {
     this.departmentService = new DepartmentService(Department);
   }
 
-  // Creating dept.
-
+  // Create Department
   async create(req: Request, res: Response) {
     const { name } = req.body;
-    const department = await Department.create({ name });
-    return res.status(201).json(department);
+    const newDepartment = new Department({ name });
+    const createdDepartment = await this.departmentService.create(
+      newDepartment
+    );
+    return res.status(201).json(createdDepartment);
   }
 
-  // Retrieve all dept.
-
+  // Retrieve all Department
   async getAll(req: Request, res: Response) {
-    const departments = await Department.findAll({
+    const departments = await this.departmentService.getAll({
       where: { name: { [Op.not]: ["ADMIN"] } },
     });
     return res.status(200).json(departments);
   }
 
-  // Retrieve a dept. by Id
-
+  // Retrieve a Department by Id
   async getById(req: Request, res: Response) {
     const { id } = req.params;
-    const department = await Department.findByPk(id);
+    const department = await this.departmentService.get(id);
     if (department) {
       return res.status(200).json(department);
     }
     return res.status(404).json({ error: "Department not found" });
   }
 
-  // Update a dept.
-
+  // Update a Department
   async update(req: Request, res: Response) {
     const { id } = req.params;
     const { name } = req.body;
-    const department = await Department.findByPk(id);
+    const department = await this.departmentService.get(id);
     if (department) {
       await department.update({ name });
       return res.status(200).json(department);
@@ -50,11 +51,10 @@ export class DepartmentController {
     return res.status(404).json({ error: "Department not found" });
   }
 
-  // Delete a departemnt.
-
+  // Delete a Department.
   async delete(req: Request, res: Response) {
     const { id } = req.params;
-    const department = await Department.findByPk(id);
+    const department = await this.departmentService.get(id);
     if (department) {
       await department.destroy();
       return res.status(204).json({ message: "Department deleted" });

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Users } from "../models";
+import { User } from "../models";
 import { UserService } from "../services/users.service";
 
 import bcrypt from "bcryptjs";
@@ -10,7 +10,7 @@ export class UserController {
   [x: string]: any;
   private userService: UserService;
   constructor() {
-    this.userService = new UserService(Users);
+    this.userService = new UserService(User);
   }
 
   async login(req: Request, res: Response) {
@@ -96,7 +96,7 @@ export class UserController {
           return res.status(400).json({ message: "User already exists" });
         else {
           bcrypt.hash(password, 10).then((hashPassword) => {
-            let newUser = new Users({
+            let newUser = new User({
               name,
               email,
               department,
@@ -106,7 +106,7 @@ export class UserController {
 
             this.userService
               .create(newUser)
-              .then((user: Users) => res.status(200).json(user))
+              .then((user: User) => res.status(200).json(user))
               .catch((err: any) => res.status(400).json(err));
           });
         }
@@ -120,7 +120,7 @@ export class UserController {
     this.userService.get(id).then((user) => {
       if (user) {
         delete user.dataValues.password;
-        let updatedUser = new Users({
+        let updatedUser = new User({
           ...user.dataValues,
           ...data,
         });
