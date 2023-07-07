@@ -17,11 +17,14 @@ import {
 } from "./middleware";
 
 import path from "path";
+import { FilesName } from "./models/FilesName";
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
+
+const list_of_files: any[] = [];
 
 let corsOptions: CorsOptions = {
   origin: "http://localhost:4200",
@@ -61,34 +64,91 @@ Users.sync().then(() => {
 
 Department.sync();
 Subject.sync();
+FilesName.sync();
 
 app.use("/api/users", new UserRoutes().getRouter());
 app.use("/api/departments", new DepartmentRoutes().getRouter());
 app.use("/api/subjects", new SubjectRoutes().getRouter());
 
+// app.post(
+//   "/api/upload",
+//   fileUpload({ createParentPath: true }),
+//   filesPayloadExists,
+//   fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
+//   fileSizeLimiter,
+//   (req, res) => {
+//     const files: any = req.files;
+//     if (files)
+//       Object.keys(files).forEach((key) => {
+//         const filepath = path.join(__dirname, "files", files[key].name);
+//         console.log(files);
+//         files[key].mv(filepath, (err: any) => {
+//           if (err)
+//             return res.status(500).json({ status: "error", message: err });
+//         });
+//         list_of_files.push(files[key].name);
+//       });
+//     console.log(list_of_files);
+//     return res.json({
+//       status: "logged ",
+//       message: Object.keys(files).toString(),
+//     });
+//   }
+// );
 app.post(
   "/api/upload",
   fileUpload({ createParentPath: true }),
   filesPayloadExists,
   fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
   fileSizeLimiter,
-  (req, res) => {
+  async (req, res) => {
     const files: any = req.files;
-    if (files)
-      Object.keys(files).forEach((key) => {
-        const filepath = path.join(__dirname, "files", files[key].name);
-
-        files[key].mv(filepath, (err: any) => {
-          if (err)
-            return res.status(500).json({ status: "error", message: err });
+    if (files) {
+      const fileNames = Object.keys(files).map((key) => files[key].name);
+      try {
+        await FilesName.bulkCreate(fileNames.map((fileName) => ({ fileName })));
+        list_of_files.push(...fileNames);
+        return res.json({
+          status: "logged ",
+          message: Object.keys(files).toString(),
         });
-      });
-    return res.json({
-      status: "logged ",
-      message: Object.keys(files).toString(),
-    });
+      } catch (error) {
+        console.error(error);
+        return res
+          .status(500)
+          .json({ status: "error", message: "Failed to save file names" });
+      }
+    }
+    return res
+      .status(400)
+      .json({ status: "error", message: "No files provided" });
   }
 );
+
+// app.get("/api/files", (req, res) => {
+//   return res.json({
+//     status: "logged ",
+//     message: list_of_files,
+//   });
+// });
+app.get("/api/files", async (req, res) => {
+  try {
+    const fileNames = await FilesName.findAll({
+      attributes: ["fileName"],
+      raw: true,
+    });
+    const files = fileNames.map((fileName) => fileName);
+    return res.json({
+      status: "logged ",
+      files: files,
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ status: "error", message: "Failed to fetch file names" });
+  }
+});
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
