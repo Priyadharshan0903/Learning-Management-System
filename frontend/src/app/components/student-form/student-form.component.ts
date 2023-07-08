@@ -69,6 +69,7 @@ export class StudentFormComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.form.value);
     if (this.form.valid) {
       if (this.studentId === -1)
         this.http

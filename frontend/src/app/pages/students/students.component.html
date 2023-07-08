@@ -15,6 +15,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Email</th>
           <th>Roll No</th>
           <th>Register No</th>
           <th>Department</th>
@@ -24,6 +25,7 @@
       <tbody>
         <tr *ngFor="let s of basicTable.data">
           <td>{{ s.name }}</td>
+          <td>{{ s.email }}</td>
           <td>{{ s.rollNo }}</td>
           <td>{{ s.regNo }}</td>
           <td>{{ s.deptName }}</td>

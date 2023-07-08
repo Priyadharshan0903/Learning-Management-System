@@ -74,15 +74,13 @@ export class StudentsComponent implements OnInit {
     }
     this.isLoading = !this.isLoading;
     this.http
-      .get<{ data: Student[]; totalItems: number }>(
-        `${environment.apiUrl}/students`,
-        { params }
-      )
+      .get<Student[]>(`${environment.apiUrl}/students`, { params })
       .subscribe({
-        next: (res: { data: Student[]; totalItems: number }) => {
+        next: (res: Student[]) => {
           this.isLoading = !this.isLoading;
-          this.students = res.data;
-          this.total = res.totalItems;
+          this.students = res;
+          console.log(res);
+          // this.total = res.totalItems;
         },
       });
   }

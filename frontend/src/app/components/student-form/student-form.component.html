@@ -32,7 +32,7 @@
     <nz-form-item>
       <nz-form-label nzRequired>Department</nz-form-label>
       <nz-form-control nzErrorTip="Please select department">
-        <nz-select nzShowSearch nzAllowClear formControlName="deptId">
+        <nz-select formControlName="deptId">
           <nz-option
             [nzValue]="d.id"
             [nzLabel]="d.name"

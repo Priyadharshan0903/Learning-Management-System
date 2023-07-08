@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
 import { Department } from "./department";
+import { User } from "./users";
 
 export class Student extends Model {}
 
@@ -12,13 +13,13 @@ Student.init(
       autoIncrement: true,
       allowNull: false,
     },
-    name: {
-      type: DataTypes.STRING,
-      validate: {
-        max: 50,
-        min: 3,
-      },
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
     rollNo: {
       type: DataTypes.STRING,
@@ -34,14 +35,6 @@ Student.init(
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    deptId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: Department,
-        key: "id",
-      },
-    },
   },
   {
     sequelize,
@@ -50,12 +43,11 @@ Student.init(
     underscored: true,
   }
 );
-
-Student.belongsTo(Department, {
-  foreignKey: "deptId",
-  as: "department",
+Student.belongsTo(User, {
+  foreignKey: "userId",
+  as: "user",
 });
-Department.hasMany(Student, {
-  foreignKey: "deptId",
-  as: "students",
+User.hasOne(Student, {
+  foreignKey: "userId",
+  as: "student",
 });
