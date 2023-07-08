@@ -1,5 +1,9 @@
 <div class="flex items-start gap-4 mb-4">
-  <button nz-button (click)="isUpload = true">
+  <button
+    nz-button
+    (click)="isUpload = true"
+    *ngIf="user.role === 'ADMIN' || user.role === 'STAFF'"
+  >
     <span nz-icon nzType="plus"></span>
     Add Notes
   </button>
