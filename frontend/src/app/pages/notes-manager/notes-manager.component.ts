@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { environment } from 'src/environments/environment';
 import { NzPopoverDirective } from 'ng-zorro-antd/popover';
-import { Staff } from 'src/app/models';
+import { Staff, Subject } from 'src/app/models';
+import { StaggerAnimation, FadeOut } from 'src/app/animations';
 
 interface Filter {
   id: number;
@@ -15,6 +16,7 @@ interface Filter {
   selector: 'app-notes-manager',
   templateUrl: './notes-manager.component.html',
   styleUrls: ['./notes-manager.component.scss'],
+  animations: [StaggerAnimation, FadeOut],
 })
 export class NotesManagerComponent implements OnInit {
   user = JSON.parse(String(localStorage.getItem('user')));
@@ -22,8 +24,11 @@ export class NotesManagerComponent implements OnInit {
   @ViewChild(NzPopoverDirective, { static: false }) popover: NzPopoverDirective;
 
   uploadUrl = `${environment.apiUrl}/files/upload`;
-
-  files: any[];
+  isUpload = false;
+  uploading = false;
+  subjects: Subject[] = [];
+  fileList: NzUploadFile[] = [];
+  files: any[] = [];
 
   departments: Filter[] = [{ id: -1, name: 'All' }];
   users: Filter[] = [{ id: -1, name: 'All' }];
@@ -35,17 +40,24 @@ export class NotesManagerComponent implements OnInit {
 
   selectedDepartment: any = -1;
   selectedUser = -1;
+  selectedSubject = -1;
+
+  beforeUpload = (file: NzUploadFile): boolean => {
+    this.fileList = this.fileList.concat(file);
+    return false;
+  };
 
   constructor(private http: HttpClient, private msg: NzMessageService) {}
-
-  log(value: object[]): void {
-    console.log(value);
-  }
 
   ngOnInit(): void {
     this.http.get(`${environment.apiUrl}/departments`).subscribe({
       next: (data: any) => {
         this.departments = [...this.departments, ...data];
+      },
+    });
+    this.http.get(`${environment.apiUrl}/subjects`).subscribe({
+      next: (data: any) => {
+        this.subjects = [...this.subjects, ...data];
       },
     });
     this.http.get<Staff[]>(`${environment.apiUrl}/users`).subscribe({
@@ -73,16 +85,39 @@ export class NotesManagerComponent implements OnInit {
       });
   }
 
-  upload(info: NzUploadChangeParam): void {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === 'done') {
-      this.msg.success(`${info.file.name} file uploaded successfully`);
-      this.getFiles();
-    } else if (info.file.status === 'error') {
-      this.msg.error(`${info.file.name} file upload failed.`);
-    }
+  uploadPdf(): void {
+    const formData = new FormData();
+    this.fileList.forEach((file: any) => {
+      formData.append('file', file);
+    });
+
+    this.http
+      .post(`${this.uploadUrl}?subjectId=${this.selectedSubject}`, formData)
+      .subscribe((event: any) => {
+        let newFiles = this.fileList.map((file) => {
+          return {
+            fileName: file.name,
+            departmentName: this.user.departmentName,
+            userName: this.user.name,
+            subjectName: this.subjects.find((s) => s.id == this.selectedSubject)
+              ?.name,
+          };
+        });
+        this.selectedSubject = -1;
+        this.files = [...this.files, ...newFiles];
+        this.isUpload = false;
+        this.fileList = [];
+      });
+  }
+
+  deletePdf(id: number) {
+    this.http
+      .delete(`${environment.apiUrl}/files/${this.files[id].fileName}`)
+      .subscribe({
+        next: (data: any) => {
+          this.files.splice(id, 1);
+        },
+      });
   }
 
   saveFilter() {

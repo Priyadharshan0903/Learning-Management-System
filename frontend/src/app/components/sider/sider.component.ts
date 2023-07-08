@@ -61,6 +61,14 @@ export class SiderComponent implements OnInit {
           disabled: false,
           link: 'departments',
         },
+        {
+          level: 2,
+          title: 'Subject',
+          icon: 'build',
+          selected: false,
+          disabled: false,
+          link: 'subjects',
+        },
       ],
     },
   ];

@@ -2,6 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../db";
 import { Department } from "./department";
 import { User } from "./users";
+import { Subject } from "./subjects";
 
 export class File extends Model {}
 
@@ -32,6 +33,14 @@ File.init(
         key: "id",
       },
     },
+    subjectId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Subject,
+        key: "id",
+      },
+    },
   },
   {
     sequelize,
@@ -42,4 +51,10 @@ File.init(
 );
 
 File.belongsTo(Department, { foreignKey: "deptId", as: "department" });
+Department.hasMany(File, { foreignKey: "deptId", as: "files" });
+
 File.belongsTo(User, { foreignKey: "userId", as: "user" });
+User.hasMany(File, { foreignKey: "userId", as: "files" });
+
+File.belongsTo(Subject, { foreignKey: "subjectId", as: "subject" });
+Subject.hasMany(File, { foreignKey: "subjectId", as: "files" });

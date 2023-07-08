@@ -20,7 +20,19 @@ export class UserController {
     }
 
     this.userService
-      .find({ where: { email } })
+      .find({
+        attributes: {
+          include: [[Sequelize.col("department.name"), "departmentName"]],
+        },
+        include: [
+          {
+            model: Department,
+            as: "department",
+            attributes: [],
+          },
+        ],
+        where: { email },
+      })
       .then((user) => {
         if (user) {
           bcrypt.compare(password, user.dataValues.password).then((checked) => {
@@ -31,6 +43,7 @@ export class UserController {
                   email,
                   role: user.dataValues.role,
                   deptId: user.dataValues.deptId,
+                  deptName: user.dataValues.departmentName,
                 },
                 process.env.TOKEN_KEY ? process.env.TOKEN_KEY : "",
                 {

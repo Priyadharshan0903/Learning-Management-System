@@ -2,8 +2,10 @@ import { Response, Request } from "express";
 import fs from "fs";
 import path from "path";
 
-import { Department, File, User } from "./../models";
+import { Department, File, Subject, User } from "./../models";
 import { Sequelize } from "sequelize";
+
+import progressStream from "progress-stream";
 
 export class FileController {
   constructor() {}
@@ -32,12 +34,18 @@ export class FileController {
           "fileName",
           [Sequelize.col("user.name"), "userName"],
           [Sequelize.col("department.name"), "departmentName"],
+          [Sequelize.col("subject.name"), "subjectName"],
         ],
         include: [
           { model: User, as: "user", attributes: [] },
           {
             model: Department,
             as: "department",
+            attributes: [],
+          },
+          {
+            model: Subject,
+            as: "subject",
             attributes: [],
           },
         ],
@@ -54,37 +62,61 @@ export class FileController {
   }
 
   async post(req: any, res: Response) {
-    const files: any = req.files;
-    if (files) {
-      const fileNames = Object.keys(files).map((key) => files[key].name);
-      try {
-        await File.bulkCreate(
-          fileNames.map((fileName) => ({
-            fileName,
-            deptId: req.user.deptId,
-            userId: req.user.userId,
-          }))
-        );
-        Object.keys(files).forEach((key) => {
-          const filepath = path.join(__dirname, "../files", files[key].name);
-          files[key].mv(filepath, (err: any) => {
-            if (err)
-              return res.status(500).json({ status: "error", message: err });
-          });
-        });
-        return res.json({
-          message: Object.keys(files).toString(),
-        });
-      } catch (error) {
-        console.error(error);
-        return res
-          .status(500)
-          .json({ status: "error", message: "Failed to save file names" });
-      }
+    const files = req.files;
+    const { subjectId } = req.query;
+    if (!files || Object.keys(files).length === 0) {
+      return res
+        .status(400)
+        .json({ status: "error", message: "No files were uploaded." });
     }
-    return res
-      .status(400)
-      .json({ status: "error", message: "No files provided" });
+
+    const fileNames: string[] = [];
+    Object.values(files).forEach((file: any) => {
+      if (file.length)
+        file.forEach((file: any) => {
+          fileNames.push(file.name);
+        });
+      else fileNames.push(file.name);
+    });
+
+    try {
+      await File.bulkCreate(
+        fileNames.map((fileName) => ({
+          fileName,
+          deptId: req.user.deptId,
+          userId: req.user.userId,
+          subjectId,
+        }))
+      );
+
+      const upload = (file: any) => {
+        const fileName = file.name;
+        const filepath = path.join(__dirname, "../files", fileName);
+
+        // Move the file to the desired destination
+        file.mv(filepath, (err: any) => {
+          if (err) {
+            console.error(`Error moving file ${fileName}:`, err);
+          }
+        });
+      };
+
+      Object.values(files).forEach((file: any) => {
+        if (file.length)
+          file.forEach((file: any) => {
+            upload(file);
+          });
+        else upload(file);
+      });
+
+      return res
+        .status(200)
+        .json({ status: "success", message: "Files uploaded successfully" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ status: "error", message: "Failed to save file names" });
+    }
   }
 
   async delete(req: Request, res: Response) {

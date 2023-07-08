@@ -7,6 +7,7 @@ import { AuthGuard } from './helpers/guard.guard';
 import { DepartmentsComponent } from './pages/departments/departments.component';
 import { StudentsComponent } from './pages/students/students.component';
 import { StaffComponent } from './pages/staff/staff.component';
+import { SubjectsComponent } from './pages/subjects/subjects.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,12 @@ const routes: Routes = [
         component: StudentsComponent,
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Students' },
+      },
+      {
+        path: 'subjects',
+        component: SubjectsComponent,
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Subjects' },
       },
     ],
   },

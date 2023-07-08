@@ -16,6 +16,7 @@ import {
   TeamOutline,
   HomeOutline,
   FilterOutline,
+  DeleteOutline,
 } from '@ant-design/icons-angular/icons';
 
 const icons = [
@@ -33,6 +34,7 @@ const icons = [
   TeamOutline,
   HomeOutline,
   FilterOutline,
+  DeleteOutline,
 ];
 
 @NgModule({

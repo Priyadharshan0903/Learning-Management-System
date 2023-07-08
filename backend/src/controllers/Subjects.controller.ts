@@ -1,21 +1,19 @@
 import { Request, Response } from "express";
-import { Department } from "../models/department";
+import { Subject } from "./../models";
 import { SubjectService } from "../services/subjects.service";
-import { Subject } from "../models/subjects";
 
 export class SubjectController {
   private subjectService: SubjectService;
 
   constructor() {
-    this.subjectService = new SubjectService(Department);
+    this.subjectService = new SubjectService(Subject);
   }
 
   // Creating subject.
   async createSubject(req: Request, res: Response) {
-    const { subjectName } = req.body;
-    const { subjectCode } = req.body;
+    const { code, name } = req.body;
 
-    const newSubject = new Subject({ subjectName, subjectCode });
+    const newSubject = new Subject({ code, name });
     const createdSubject = await this.subjectService.create(newSubject);
 
     return res.status(201).json(createdSubject);
@@ -40,12 +38,11 @@ export class SubjectController {
   // Update a subject.
   async updateSubjects(req: Request, res: Response) {
     const { id } = req.params;
-    const { subjectName } = req.body;
-    const { subjectCode } = req.body;
+    const { code, name } = req.body;
 
     const subject = await this.subjectService.get(id);
     if (subject) {
-      await subject.update({ subjectName, subjectCode });
+      await subject.update({ code, name });
       return res.status(200).json(subject);
     }
     return res.status(404).json({ error: "Subject not found" });

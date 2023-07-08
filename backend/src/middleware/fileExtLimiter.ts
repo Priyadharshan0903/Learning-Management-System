@@ -7,11 +7,13 @@ export const fileExtLimiter = (allowedExtArray: string | any[]) => {
 
     const fileExtension: any[] = [];
     if (files)
-      Object.keys(files).forEach((key) => {
-        fileExtension.push(path.extname(files[key].name));
+      Object.values(files).forEach((file: any) => {
+        if (file.length)
+          file.forEach((file: any) => {
+            fileExtension.push(path.extname(file.name));
+          });
+        else fileExtension.push(path.extname(files.file.name));
       });
-
-    ///Are the files extension allowed?
 
     const allowed = fileExtension.every((ext) => allowedExtArray.includes(ext));
 

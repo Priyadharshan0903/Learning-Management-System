@@ -11,12 +11,12 @@ Subject.init(
       autoIncrement: true,
       allowNull: false,
     },
-    subjectCode: {
+    code: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    subjectName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },

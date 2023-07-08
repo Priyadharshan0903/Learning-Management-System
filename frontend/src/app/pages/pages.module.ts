@@ -11,6 +11,7 @@ import { DepartmentsComponent } from './departments/departments.component';
 import { StudentsComponent } from './students/students.component';
 import { StaffComponent } from './staff/staff.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { SubjectsComponent } from './subjects/subjects.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     DepartmentsComponent,
     StudentsComponent,
     StaffComponent,
+    SubjectsComponent,
   ],
   imports: [
     CommonModule,
