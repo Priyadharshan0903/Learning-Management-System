@@ -12,6 +12,7 @@ export class FileController {
 
   async get(req: any, res: Response) {
     let deptId = Number(req.query.deptId);
+    let sem = Number(req.query.sem);
     let userId = Number(req.query.userId);
 
     if (req.user?.role !== "ADMIN") {
@@ -22,16 +23,20 @@ export class FileController {
     try {
       let where = {};
       if (deptId > 0) {
-        where = { deptId };
+        where = { ...where, deptId };
       }
-
-      if (userId > 0) {
-        where = { ...where, userId };
+      if (sem > 0) {
+        where = { ...where, semester: sem };
       }
+      // if (userId > 0) {
+      //   where = { ...where, userId };
+      // }
 
       const files = await File.findAll({
         attributes: [
+          "id",
           "fileName",
+          "semester",
           [Sequelize.col("user.name"), "userName"],
           [Sequelize.col("department.name"), "departmentName"],
           [Sequelize.col("subject.name"), "subjectName"],
@@ -63,7 +68,7 @@ export class FileController {
 
   async post(req: any, res: Response) {
     const files = req.files;
-    const { subjectId } = req.query;
+    const { subjectId, deptId, sem } = req.query;
     if (!files || Object.keys(files).length === 0) {
       return res
         .status(400)
@@ -83,15 +88,24 @@ export class FileController {
       await File.bulkCreate(
         fileNames.map((fileName) => ({
           fileName,
-          deptId: req.user.deptId,
+          deptId: req.user.deptName === "ADMIN" ? deptId : req.user.deptId,
           userId: req.user.userId,
           subjectId,
+          semester: sem,
         }))
       );
 
+      let dept = await Department.findOne({
+        where: { id: req.user.deptName === "ADMIN" ? deptId : req.user.deptId },
+      });
+
       const upload = (file: any) => {
         const fileName = file.name;
-        const filepath = path.join(__dirname, "../files", fileName);
+        const filepath = path.join(
+          __dirname,
+          `../files/${dept?.dataValues.name}/Semester${sem}`,
+          fileName
+        );
 
         // Move the file to the desired destination
         file.mv(filepath, (err: any) => {
@@ -121,9 +135,17 @@ export class FileController {
 
   async delete(req: Request, res: Response) {
     try {
-      const fileName = req.params.fileName;
-      await File.destroy({ where: { fileName } });
-      const filepath = path.join(__dirname, "../files", fileName);
+      const id = req.params.id;
+      const fileName = String(req.query.fileName);
+      const dept = req.query.dept;
+      const sem = req.query.sem;
+
+      await File.destroy({ where: { id } });
+      const filepath = path.join(
+        __dirname,
+        `../files/${dept}/Semester${sem}`,
+        fileName
+      );
       fs.unlink(filepath, (err: any) => {
         if (err) {
           console.error(err);

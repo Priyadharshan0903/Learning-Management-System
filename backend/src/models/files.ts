@@ -41,6 +41,10 @@ File.init(
         key: "id",
       },
     },
+    semester: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,

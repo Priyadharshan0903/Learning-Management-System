@@ -39,6 +39,7 @@ export class StudentController {
 
   async create(req: Request, res: Response) {
     const { name, email, regNo, rollNo, deptId, dob } = req.body;
+    console.log(dob);
 
     const hashPassword = await bcrypt.hash(dob, 10);
 

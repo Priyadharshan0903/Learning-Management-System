@@ -7,6 +7,7 @@ import { Department } from './../../models';
 import { differenceInCalendarDays } from 'date-fns';
 
 import { environment } from 'src/environments/environment';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-student-form',
@@ -71,9 +72,11 @@ export class StudentFormComponent implements OnInit {
   submit() {
     console.log(this.form.value);
     if (this.form.valid) {
+      let data = this.form.value;
+      data.dob = formatDate(data.dob, 'yyyy-MM-dd', 'en');
       if (this.studentId === -1)
         this.http
-          .post(`${environment.apiUrl}/students`, this.form.value)
+          .post(`${environment.apiUrl}/students`, data)
           .subscribe((data: any) => {
             this.message.success('Student added successfully');
             this.form.reset();
@@ -83,7 +86,7 @@ export class StudentFormComponent implements OnInit {
         this.http
           .put(`${environment.apiUrl}/students/${this.studentId}`, {
             id: this.studentId,
-            ...this.form.value,
+            ...data,
           })
           .subscribe((data: any) => {
             this.message.success('Student updated successfully');

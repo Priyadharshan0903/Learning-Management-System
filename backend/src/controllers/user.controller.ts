@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Department, User } from "../models";
+import { Department, Student, User } from "../models";
 import { UserService } from "../services/users.service";
 
 import bcrypt from "bcryptjs";
@@ -13,7 +13,7 @@ export class UserController {
   }
 
   async login(req: Request, res: Response) {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
 
     if (!(email && password)) {
       return res.status(400).send("All input is required");
@@ -33,8 +33,15 @@ export class UserController {
         ],
         where: { email },
       })
-      .then((user) => {
+      .then(async (user) => {
         if (user) {
+          let student;
+          if (user.dataValues.role === "STUDENT")
+            student = await Student.findOne({
+              where: { userId: user.dataValues.id },
+            });
+          if (student) password = student?.dataValues.dob;
+          console.log(password);
           bcrypt.compare(password, user.dataValues.password).then((checked) => {
             if (checked) {
               const token = jwt.sign(

@@ -46,8 +46,10 @@ Student.init(
 Student.belongsTo(User, {
   foreignKey: "userId",
   as: "user",
+  onDelete: "CASCADE",
 });
 User.hasOne(Student, {
   foreignKey: "userId",
   as: "student",
+  onDelete: "CASCADE",
 });

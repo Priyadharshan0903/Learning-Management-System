@@ -25,7 +25,10 @@
   <div *ngFor="let file of files" class="flex flex-col items-center">
     <div class="flex gap-5">
       <span class="text-lg font-medium">{{ file.fileName }}</span>
-      <a [href]="'http://localhost:3000/' + file.fileName" target="_blank">
+      <a
+        [href]="fileUrl(file.departmentName, file.semester, file.fileName)"
+        target="_blank"
+      >
         <button nz-button nzSize="small">
           <span nz-icon nzType="eye"></span>
         </button>
@@ -35,7 +38,7 @@
       </button>
     </div>
     <pdf-viewer
-      [src]="'http://localhost:3000/' + file.fileName"
+      [src]="fileUrl(file.departmentName, file.semester, file.fileName)"
       [render-text]="true"
       [original-size]="false"
       class="w-[400px] h-[450px] border border-gray-300"
@@ -54,9 +57,11 @@
     @fadeOut
   >
     <div class="flex items-center gap-5">
-      <a [href]="'http://localhost:3000/' + file.fileName" target="_blank">{{
-        file.fileName
-      }}</a>
+      <a
+        [href]="fileUrl(file.departmentName, file.semester, file.fileName)"
+        target="_blank"
+        >{{ file.fileName }}</a
+      >
       <span
         nz-icon
         nzType="delete"
@@ -69,6 +74,7 @@
       <nz-tag nzColor="blue">{{ file.userName }}</nz-tag>
       <nz-tag nzColor="geekblue">{{ file.departmentName }}</nz-tag>
       <nz-tag nzColor="purple">{{ file.subjectName }}</nz-tag>
+      <nz-tag nzColor="cyan">Sem {{ file.semester }}</nz-tag>
     </div>
   </div>
 </div>
@@ -79,9 +85,12 @@
       <span class="w-full text-gray-500">Department</span>
       <hr class="my-1 mb-2" />
       <nz-radio-group [(ngModel)]="tempFilter.department">
-        <label nz-radio [nzValue]="dept.id" *ngFor="let dept of departments">{{
-          dept.name
-        }}</label>
+        <label
+          nz-radio
+          [nzValue]="dept.id"
+          *ngFor="let dept of filterDepartments"
+          >{{ dept.name }}</label
+        >
       </nz-radio-group>
     </div>
     <div>
@@ -91,6 +100,18 @@
         <label nz-radio [nzValue]="u.id" *ngFor="let u of users">{{
           u.name
         }}</label>
+      </nz-radio-group>
+    </div>
+    <div>
+      <span class="w-full text-gray-500">Users</span>
+      <hr class="my-1 mb-2" />
+      <nz-radio-group [(ngModel)]="tempFilter.sem">
+        <label
+          nz-radio
+          [nzValue]="s"
+          *ngFor="let s of [-1, 1, 2, 3, 4, 5, 6, 7, 8]"
+          >{{ s > 0 ? "Sem" + s : "All" }}</label
+        >
       </nz-radio-group>
     </div>
     <div>
@@ -118,9 +139,10 @@
   (nzOnCancel)="isUpload = false; fileList = []"
   (nzOnOk)="uploadPdf()"
   nzOkText="Upload"
+  class="w-full"
 >
   <ng-container *nzModalContent>
-    <div class="flex items-start gap-4">
+    <div class="flex flex-wrap items-start justify-center gap-4 w-full">
       <nz-select
         class="w-[200px]"
         [(ngModel)]="selectedSubject"
@@ -132,13 +154,36 @@
           [nzLabel]="sub.name"
         ></nz-option>
       </nz-select>
+      <nz-select
+        *ngIf="user.role === 'ADMIN'"
+        class="w-[200px]"
+        [(ngModel)]="selectedDepartment"
+        nzPlaceHolder="Select department."
+      >
+        <nz-option
+          *ngFor="let dept of departments"
+          [nzValue]="dept.id"
+          [nzLabel]="dept.name"
+        ></nz-option>
+      </nz-select>
+      <nz-select
+        class="w-[200px]"
+        [(ngModel)]="selectedSemester"
+        nzPlaceHolder="Select semester."
+      >
+        <nz-option
+          *ngFor="let s of [1, 2, 3, 4, 5, 6, 7, 8]"
+          [nzValue]="s"
+          [nzLabel]="s"
+        ></nz-option>
+      </nz-select>
       <nz-upload
         *ngIf="user.role === 'ADMIN' || user.role === 'STAFF'"
         nzMultiple
         [(nzFileList)]="fileList"
         [nzBeforeUpload]="beforeUpload"
       >
-        <button nz-button>
+        <button nz-button class="w-[200px]">
           <span nz-icon nzType="plus"></span>
           Add Pdf
         </button>

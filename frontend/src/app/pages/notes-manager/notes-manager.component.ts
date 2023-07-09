@@ -4,7 +4,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { environment } from 'src/environments/environment';
 import { NzPopoverDirective } from 'ng-zorro-antd/popover';
-import { Staff, Subject } from 'src/app/models';
+import { Department, Staff, Subject } from 'src/app/models';
 import { StaggerAnimation, FadeOut } from 'src/app/animations';
 
 interface Filter {
@@ -20,6 +20,7 @@ interface Filter {
 })
 export class NotesManagerComponent implements OnInit {
   user = JSON.parse(String(localStorage.getItem('user')));
+  isAdmin = this.user.role === 'ADMIN';
 
   @ViewChild(NzPopoverDirective, { static: false }) popover: NzPopoverDirective;
 
@@ -30,29 +31,39 @@ export class NotesManagerComponent implements OnInit {
   fileList: NzUploadFile[] = [];
   files: any[] = [];
 
-  departments: Filter[] = [{ id: -1, name: 'All' }];
+  departments: Department[] = [];
+  filterDepartments: Filter[] = [{ id: -1, name: 'All' }];
   users: Filter[] = [{ id: -1, name: 'All' }];
 
   tempFilter = {
     department: -1,
     user: -1,
+    sem: -1,
   };
 
-  selectedDepartment: any = -1;
-  selectedUser = -1;
+  filterSelectedDept: any = -1;
+  filterSelectedUser = -1;
+  filterSelectedSemester = -1;
+
   selectedSubject = -1;
+  selectedDepartment = -1;
+  selectedSemester = -1;
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);
     return false;
   };
 
+  fileUrl = (deptName: string, sem: string, fileName: string) =>
+    'http://localhost:3000/' + deptName + '/Semester' + sem + '/' + fileName;
+
   constructor(private http: HttpClient, private msg: NzMessageService) {}
 
   ngOnInit(): void {
     this.http.get(`${environment.apiUrl}/departments`).subscribe({
       next: (data: any) => {
-        this.departments = [...this.departments, ...data];
+        this.departments = data;
+        this.filterDepartments = [...this.filterDepartments, ...data];
       },
     });
     this.http.get(`${environment.apiUrl}/subjects`).subscribe({
@@ -75,12 +86,12 @@ export class NotesManagerComponent implements OnInit {
 
   getFiles() {
     this.http
-      .get(
-        `${environment.apiUrl}/files?deptId=${this.selectedDepartment}&userId=${this.selectedUser}`
+      .get<any[]>(
+        `${environment.apiUrl}/files?deptId=${this.filterSelectedDept}&sem=${this.filterSelectedSemester}&userId=${this.filterSelectedUser}`
       )
       .subscribe({
-        next: (data: any) => {
-          this.files = data;
+        next: (data: any[]) => {
+          this.files = [...data.filter((d) => !this.files.includes(d))];
         },
       });
   }
@@ -92,15 +103,24 @@ export class NotesManagerComponent implements OnInit {
     });
 
     this.http
-      .post(`${this.uploadUrl}?subjectId=${this.selectedSubject}`, formData)
+      .post(
+        `${this.uploadUrl}?subjectId=${this.selectedSubject}${
+          this.isAdmin ? '&deptId=' + this.selectedDepartment : ''
+        }&sem=${this.selectedSemester}`,
+        formData
+      )
       .subscribe((event: any) => {
         let newFiles = this.fileList.map((file) => {
           return {
             fileName: file.name,
-            departmentName: this.user.departmentName,
+            departmentName: this.isAdmin
+              ? this.departments.find((d) => d.id == this.selectedDepartment)
+                  ?.name
+              : this.user.departmentName,
             userName: this.user.name,
             subjectName: this.subjects.find((s) => s.id == this.selectedSubject)
               ?.name,
+            semester: this.selectedSemester,
           };
         });
         this.selectedSubject = -1;
@@ -112,7 +132,9 @@ export class NotesManagerComponent implements OnInit {
 
   deletePdf(id: number) {
     this.http
-      .delete(`${environment.apiUrl}/files/${this.files[id].fileName}`)
+      .delete(
+        `${environment.apiUrl}/files/${this.files[id].id}?fileName=${this.files[id].fileName}&dept=${this.files[id].departmentName}&sem=${this.files[id].semester}`
+      )
       .subscribe({
         next: (data: any) => {
           this.files.splice(id, 1);
@@ -122,14 +144,16 @@ export class NotesManagerComponent implements OnInit {
 
   saveFilter() {
     this.popover.hide();
-    this.selectedDepartment = this.tempFilter.department;
-    this.selectedUser = this.tempFilter.user;
+    this.filterSelectedDept = this.tempFilter.department;
+    this.filterSelectedUser = this.tempFilter.user;
+    this.filterSelectedSemester = this.tempFilter.sem;
     this.getFiles();
   }
 
   cancelFilter() {
-    this.tempFilter.department = this.selectedDepartment;
-    this.tempFilter.user = this.selectedUser;
+    this.tempFilter.department = this.filterSelectedDept;
+    this.tempFilter.user = this.filterSelectedUser;
+    this.tempFilter.sem = this.filterSelectedSemester;
     this.popover.hide();
   }
 

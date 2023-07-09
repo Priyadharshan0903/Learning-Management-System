@@ -42,7 +42,7 @@ export const DropDownAnimation = trigger('slide', [
 ]);
 
 export const StaggerAnimation = trigger('staggerAnimation', [
-  transition(':enter', [
+  transition('void => *', [
     query(
       ':enter',
       [
@@ -64,10 +64,7 @@ export const FadeOut = trigger('fadeOut', [
         style({ opacity: 0, transform: 'scale(0.5)', offset: 0.5 }),
         style({
           transform: 'scale(0)',
-          height: 0,
           width: 0,
-          margin: 0,
-          padding: 0,
           offset: 1,
         }),
       ])

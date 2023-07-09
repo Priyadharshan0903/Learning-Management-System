@@ -33,7 +33,7 @@ export class FileRoutes {
       (req, res) => this.controller.post(req, res)
     );
 
-    this.router.delete("/:fileName", verifyToken, (req, res) =>
+    this.router.delete("/:id", verifyToken, (req, res) =>
       this.controller.delete(req, res)
     );
   }

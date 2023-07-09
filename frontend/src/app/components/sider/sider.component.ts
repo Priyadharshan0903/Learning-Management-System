@@ -10,71 +10,142 @@ export class SiderComponent implements OnInit {
   user = JSON.parse(String(localStorage.getItem('user')));
 
   notesManager = false;
-  menus = [
-    {
-      level: 1,
-      title: 'Dashboard',
-      icon: 'dashboard',
-      open: false,
-      selected: false,
-      disabled: false,
-      link: 'dashboard',
-    },
-    {
-      level: 1,
-      title: 'Notes Manager',
-      icon: 'folder-open',
-      open: false,
-      selected: false,
-      disabled: false,
-      link: 'notes',
-    },
-    {
-      level: 1,
-      title: 'Master',
-      icon: 'database',
-      open: false,
-      selected: false,
-      disabled: false,
-      children: [
-        {
-          level: 2,
-          title: 'Staff',
-          icon: 'team',
-          selected: false,
-          disabled: false,
-          link: 'staff',
-        },
-        {
-          level: 2,
-          title: 'Student',
-          icon: 'team',
-          selected: false,
-          disabled: false,
-          link: 'students',
-        },
-        {
-          level: 2,
-          title: 'Department',
-          icon: 'build',
-          selected: false,
-          disabled: false,
-          link: 'departments',
-        },
-        {
-          level: 2,
-          title: 'Subject',
-          icon: 'build',
-          selected: false,
-          disabled: false,
-          link: 'subjects',
-        },
-      ],
-    },
-  ];
+  menus: any[] = [];
 
-  constructor() {}
+  constructor() {
+    if (this.user.role === 'STUDENT')
+      this.menus = [
+        {
+          level: 1,
+          title: 'Notes',
+          icon: 'folder-open',
+          open: false,
+          selected: false,
+          disabled: false,
+          link: 'notes',
+        },
+      ];
 
+    if (this.user.role === 'ADMIN')
+      this.menus = [
+        {
+          level: 1,
+          title: 'Dashboard',
+          icon: 'dashboard',
+          open: false,
+          selected: false,
+          disabled: false,
+          link: 'dashboard',
+        },
+        {
+          level: 1,
+          title: 'Notes Manager',
+          icon: 'folder-open',
+          open: false,
+          selected: false,
+          disabled: false,
+          link: 'notes',
+        },
+        {
+          level: 1,
+          title: 'Master',
+          icon: 'database',
+          open: false,
+          selected: false,
+          disabled: false,
+          children: [
+            {
+              level: 2,
+              title: 'Staff',
+              icon: 'team',
+              selected: false,
+              disabled: false,
+              link: 'staff',
+            },
+            {
+              level: 2,
+              title: 'Student',
+              icon: 'team',
+              selected: false,
+              disabled: false,
+              link: 'students',
+            },
+            {
+              level: 2,
+              title: 'Department',
+              icon: 'build',
+              selected: false,
+              disabled: false,
+              link: 'departments',
+            },
+            {
+              level: 2,
+              title: 'Subject',
+              icon: 'build',
+              selected: false,
+              disabled: false,
+              link: 'subjects',
+            },
+          ],
+        },
+      ];
+
+    if (this.user.role === 'STAFF')
+      this.menus = [
+        {
+          level: 1,
+          title: 'Dashboard',
+          icon: 'dashboard',
+          open: false,
+          selected: false,
+          disabled: false,
+          link: 'dashboard',
+        },
+        {
+          level: 1,
+          title: 'Notes Manager',
+          icon: 'folder-open',
+          open: false,
+          selected: false,
+          disabled: false,
+          link: 'notes',
+        },
+        {
+          level: 1,
+          title: 'Master',
+          icon: 'database',
+          open: false,
+          selected: false,
+          disabled: false,
+          children: [
+            {
+              level: 2,
+              title: 'Student',
+              icon: 'team',
+              selected: false,
+              disabled: false,
+              link: 'students',
+            },
+            {
+              level: 2,
+              title: 'Department',
+              icon: 'build',
+              selected: false,
+              disabled: false,
+              link: 'departments',
+            },
+            {
+              level: 2,
+              title: 'Subject',
+              icon: 'build',
+              selected: false,
+              disabled: false,
+              link: 'subjects',
+            },
+          ],
+        },
+      ];
+  }
   ngOnInit(): void {
     if (this.user.role === 'STUDENT') {
       this.notesManager = false;
