@@ -1,5 +1,5 @@
-import { Request, Response, Router } from "express";
-import { verifyToken } from "../middleware";
+import { Router } from "express";
+import { studentGuard, verifyToken } from "../middleware";
 import { StudentController } from "../controllers/student.controller";
 
 export class StudentRoutes {
@@ -12,27 +12,27 @@ export class StudentRoutes {
     this.routes();
   }
   private routes() {
-    this.router.post("/", verifyToken, (req, res) =>
+    this.router.post("/", verifyToken, studentGuard, (req, res) =>
       this.controller.create(req, res)
     );
 
     // GET All Student
-    this.router.get("/", verifyToken, (req, res) =>
+    this.router.get("/", verifyToken, studentGuard, (req, res) =>
       this.controller.getAll(req, res)
     );
 
     // GET Student by Id
-    this.router.get("/:id", verifyToken, (req, res) =>
+    this.router.get("/:id", verifyToken, studentGuard, (req, res) =>
       this.controller.getById(req, res)
     );
 
     // UPDATE Student
-    this.router.put("/:id", verifyToken, (req, res) =>
+    this.router.put("/:id", verifyToken, studentGuard, (req, res) =>
       this.controller.update(req, res)
     );
 
     // DELETE Student
-    this.router.delete("/:id", verifyToken, (req, res) =>
+    this.router.delete("/:id", verifyToken, studentGuard, (req, res) =>
       this.controller.delete(req, res)
     );
   }

@@ -1,6 +1,6 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { DepartmentController } from "../controllers";
-import { verifyToken } from "../middleware";
+import { studentGuard, verifyToken } from "../middleware";
 
 export class DepartmentRoutes {
   private router: Router;
@@ -12,27 +12,27 @@ export class DepartmentRoutes {
     this.routes();
   }
   private routes() {
-    this.router.post("/", verifyToken, (req, res) =>
+    this.router.post("/", verifyToken, studentGuard, (req, res) =>
       this.controller.create(req, res)
     );
 
     // GET All Department
-    this.router.get("/", verifyToken, (req, res) =>
+    this.router.get("/", verifyToken, studentGuard, (req, res) =>
       this.controller.getAll(req, res)
     );
 
     // GET Department by Id
-    this.router.get("/:id", verifyToken, (req, res) =>
+    this.router.get("/:id", verifyToken, studentGuard, (req, res) =>
       this.controller.getById(req, res)
     );
 
     // UPDATE Department
-    this.router.put("/:id", verifyToken, (req, res) =>
+    this.router.put("/:id", verifyToken, studentGuard, (req, res) =>
       this.controller.update(req, res)
     );
 
     // DELETE Department
-    this.router.delete("/:id", verifyToken, (req, res) =>
+    this.router.delete("/:id", verifyToken, studentGuard, (req, res) =>
       this.controller.delete(req, res)
     );
   }

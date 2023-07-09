@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { NzPopoverDirective } from 'ng-zorro-antd/popover';
 import { Department, Staff, Subject } from 'src/app/models';
 import { StaggerAnimation, FadeOut } from 'src/app/animations';
+import { ActivatedRoute } from '@angular/router';
 
 interface Filter {
   id: number;
@@ -21,6 +22,7 @@ interface Filter {
 export class NotesManagerComponent implements OnInit {
   user = JSON.parse(String(localStorage.getItem('user')));
   isAdmin = this.user.role === 'ADMIN';
+  semester = -1;
 
   @ViewChild(NzPopoverDirective, { static: false }) popover: NzPopoverDirective;
 
@@ -57,7 +59,16 @@ export class NotesManagerComponent implements OnInit {
   fileUrl = (deptName: string, sem: string, fileName: string) =>
     'http://localhost:3000/' + deptName + '/Semester' + sem + '/' + fileName;
 
-  constructor(private http: HttpClient, private msg: NzMessageService) {}
+  constructor(
+    private http: HttpClient,
+    private msg: NzMessageService,
+    private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe((params: any) => {
+      this.semester = params.sem;
+      this.getFiles();
+    });
+  }
 
   ngOnInit(): void {
     this.http.get(`${environment.apiUrl}/departments`).subscribe({
@@ -81,13 +92,14 @@ export class NotesManagerComponent implements OnInit {
         });
       },
     });
-    this.getFiles();
   }
 
   getFiles() {
     this.http
       .get<any[]>(
-        `${environment.apiUrl}/files?deptId=${this.filterSelectedDept}&sem=${this.filterSelectedSemester}&userId=${this.filterSelectedUser}`
+        `${environment.apiUrl}/files?deptId=${this.filterSelectedDept}&sem=${
+          this.semester ? this.semester : this.filterSelectedSemester
+        }&userId=${this.filterSelectedUser}`
       )
       .subscribe({
         next: (data: any[]) => {

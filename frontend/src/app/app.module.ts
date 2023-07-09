@@ -18,6 +18,7 @@ import { ComponentsModule } from './components/components.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { PagesModule } from './pages/pages.module';
 import { AuthInterceptorProvider } from './helpers/auth.interceptor';
+import { ErrorInterceptorProvider } from './helpers/error.interceptor';
 
 registerLocaleData(en);
 
@@ -38,7 +39,11 @@ registerLocaleData(en);
     PagesModule,
     ReactiveFormsModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }, AuthInterceptorProvider],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

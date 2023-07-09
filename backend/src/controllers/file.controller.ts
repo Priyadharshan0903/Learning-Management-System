@@ -13,11 +13,11 @@ export class FileController {
   async get(req: any, res: Response) {
     let deptId = Number(req.query.deptId);
     let sem = Number(req.query.sem);
-    let userId = Number(req.query.userId);
+    // let userId = Number(req.query.userId);
 
     if (req.user?.role !== "ADMIN") {
       deptId = req.user.deptId;
-      if (req.user.role === "STAFF") userId = req.user.userId;
+      // if (req.user.role === "STAFF") userId = req.user.userId;
     }
 
     try {

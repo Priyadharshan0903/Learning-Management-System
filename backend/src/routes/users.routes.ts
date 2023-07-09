@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { UserController } from "../controllers/user.controller";
-import { verifyToken } from "../middleware";
+import { adminOnlyGuard, verifyToken } from "../middleware";
 // import { verifyToken } from "../middleware";
 
 export class UserRoutes {
@@ -20,28 +20,30 @@ export class UserRoutes {
     // );
 
     // //! GetAll
-    this.router.get("/", verifyToken, (req, res) =>
+    this.router.get("/", verifyToken, adminOnlyGuard, (req, res) =>
       this.controller.getAll(req, res)
     );
 
     // //! GetById
-    this.router.get("/:id", verifyToken, (req, res) =>
+    this.router.get("/:id", verifyToken, adminOnlyGuard, (req, res) =>
       this.controller.getById(req, res)
     );
 
     //! Register
-    this.router.post("/", (req, res) => this.controller.post(req, res));
+    this.router.post("/", verifyToken, adminOnlyGuard, (req, res) =>
+      this.controller.post(req, res)
+    );
 
     // //! Login
     this.router.post("/login", (req, res) => this.controller.login(req, res));
 
     // //! Put
-    this.router.put("/:id", verifyToken, (req, res) =>
+    this.router.put("/:id", verifyToken, adminOnlyGuard, (req, res) =>
       this.controller.update(req, res)
     );
 
     // //! Delete
-    this.router.delete("/:id", verifyToken, (req, res) =>
+    this.router.delete("/:id", verifyToken, adminOnlyGuard, (req, res) =>
       this.controller.delete(req, res)
     );
   }

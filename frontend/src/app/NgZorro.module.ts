@@ -21,6 +21,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 @NgModule({
   exports: [
@@ -45,6 +46,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
     NzDividerModule,
     NzCheckboxModule,
     NzRadioModule,
+    NzNotificationModule,
   ],
 })
 export class NgZorroModule {}

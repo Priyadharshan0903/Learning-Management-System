@@ -4,6 +4,7 @@ import {
   fileExtLimiter,
   fileSizeLimiter,
   filesPayloadExists,
+  studentGuard,
   verifyToken,
 } from "../middleware";
 import fileUpload from "express-fileupload";
@@ -26,6 +27,7 @@ export class FileRoutes {
     this.router.post(
       "/upload",
       verifyToken,
+      studentGuard,
       fileUpload({ createParentPath: true }),
       filesPayloadExists,
       fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
@@ -33,7 +35,7 @@ export class FileRoutes {
       (req, res) => this.controller.post(req, res)
     );
 
-    this.router.delete("/:id", verifyToken, (req, res) =>
+    this.router.delete("/:id", verifyToken, studentGuard, (req, res) =>
       this.controller.delete(req, res)
     );
   }

@@ -19,10 +19,19 @@ export class SiderComponent implements OnInit {
           level: 1,
           title: 'Notes',
           icon: 'folder-open',
-          open: false,
+          open: true,
           selected: false,
           disabled: false,
-          link: 'notes',
+          children: [
+            ...[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => ({
+              level: 2,
+              title: 'Semester' + sem,
+              icon: 'file',
+              selected: false,
+              disabled: false,
+              link: 'student/notes/' + sem,
+            })),
+          ],
         },
       ];
 

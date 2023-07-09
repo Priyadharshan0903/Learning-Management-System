@@ -37,7 +37,6 @@ export class SubjectsComponent {
         this.isLoading = !this.isLoading;
         this.subjects = data;
       },
-      error: (err) => (this.isLoading = !this.isLoading),
     });
   }
 
