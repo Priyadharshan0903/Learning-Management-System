@@ -85,6 +85,23 @@ export class FileController {
     });
 
     try {
+      ////////////////// Checking the existing files //////////////////
+      const existingFiles = await File.findAll({
+        where: {
+          fileName: fileNames,
+          semester: sem,
+          deptId,
+        },
+      });
+      console.log(existingFiles);
+
+      if (existingFiles.length > 0) {
+        return res.status(400).json({
+          status: "error",
+          message: "One or more files already exist.",
+        });
+      }
+      ////////// End of checking the existing files //////////
       await File.bulkCreate(
         fileNames.map((fileName) => ({
           fileName,

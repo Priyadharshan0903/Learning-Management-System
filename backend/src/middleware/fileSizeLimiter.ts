@@ -12,6 +12,9 @@ export const fileSizeLimiter = (
 
   const filesOverLimit: any[] = [];
   //Determine Which files are over the limit
+
+  /// CHECK IF FILES ARE PRESENT
+
   if (files)
     Object.keys(files).forEach((key) => {
       if (files[key].size > FILE_SIZE_LIMIT) {

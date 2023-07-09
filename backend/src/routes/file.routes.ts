@@ -1,9 +1,10 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { FileController } from "../controllers";
 import {
-  fileExtLimiter,
-  fileSizeLimiter,
   filesPayloadExists,
+  fileExtLimiter,
+  //Files Exists   req --->  Dept ID , SemId  check with the Files table
+  fileSizeLimiter,
   studentGuard,
   verifyToken,
 } from "../middleware";
@@ -30,9 +31,9 @@ export class FileRoutes {
       studentGuard,
       fileUpload({ createParentPath: true }),
       filesPayloadExists,
-      fileExtLimiter([".png", ".jpg", "jpe", ".pdf"]),
+      fileExtLimiter([".png", ".jpg", "jpeg", ".pdf"]),
       fileSizeLimiter,
-      (req, res) => this.controller.post(req, res)
+      (req: Request, res: Response) => this.controller.post(req, res)
     );
 
     this.router.delete("/:id", verifyToken, studentGuard, (req, res) =>
