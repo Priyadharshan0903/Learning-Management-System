@@ -60,9 +60,7 @@ export class FileController {
       return res.json(files);
     } catch (error) {
       console.error(error);
-      return res
-        .status(500)
-        .json({ status: "error", message: "Failed to fetch file names" });
+      return res.status(500).send("Failed to fetch file names");
     }
   }
 
@@ -70,9 +68,7 @@ export class FileController {
     const files = req.files;
     const { subjectId, deptId, sem } = req.query;
     if (!files || Object.keys(files).length === 0) {
-      return res
-        .status(400)
-        .json({ status: "error", message: "No files were uploaded." });
+      return res.status(422).send("No files were uploaded.");
     }
 
     const fileNames: string[] = [];
@@ -93,13 +89,15 @@ export class FileController {
           deptId,
         },
       });
-      console.log(existingFiles);
+
+      const existingFileNames = existingFiles.map(
+        (existingFile) => existingFile.dataValues.fileName + "\n"
+      );
 
       if (existingFiles.length > 0) {
-        return res.status(400).json({
-          status: "error",
-          message: "One or more files already exist.",
-        });
+        return res
+          .status(400)
+          .send(`${existingFileNames} files already exist.`);
       }
       ////////// End of checking the existing files //////////
       await File.bulkCreate(
@@ -144,9 +142,7 @@ export class FileController {
         .status(200)
         .json({ status: "success", message: "Files uploaded successfully" });
     } catch (error) {
-      return res
-        .status(500)
-        .json({ status: "error", message: "Failed to save file names" });
+      return res.status(500).send("Failed to save file names");
     }
   }
 
@@ -166,17 +162,13 @@ export class FileController {
       fs.unlink(filepath, (err: any) => {
         if (err) {
           console.error(err);
-          return res
-            .status(500)
-            .json({ status: "error", message: "Failed to delete file" });
+          return res.status(500).send("Failed to delete file");
         }
       });
       return res.json({ status: "success", message: "File deleted" });
     } catch (error) {
       console.error(error);
-      return res
-        .status(500)
-        .json({ status: "error", message: "Failed to delete file" });
+      return res.status(500).send("Failed to delete file");
     }
   }
 }

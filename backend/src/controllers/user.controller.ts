@@ -41,7 +41,6 @@ export class UserController {
               where: { userId: user.dataValues.id },
             });
           if (student) password = student?.dataValues.dob;
-          console.log(password);
           bcrypt.compare(password, user.dataValues.password).then((checked) => {
             if (checked) {
               const token = jwt.sign(
@@ -67,7 +66,7 @@ export class UserController {
           });
         } else res.status(401).send("Invalid Credentials");
       })
-      .catch((err) => res.status(400).json(err));
+      .catch((err) => res.status(400).send(err.message));
   }
 
   getAll(req: Request, res: Response) {
@@ -107,7 +106,7 @@ export class UserController {
       })
       .then((user: any) => {
         if (!user) {
-          return res.status(404).json({ message: "User not found" });
+          return res.status(404).send("User not found");
         }
         return res.status(200).json(user);
       });
@@ -120,8 +119,7 @@ export class UserController {
     this.userService
       .find({ where: { email } })
       .then((user: any) => {
-        if (user)
-          return res.status(400).json({ message: "User already exists" });
+        if (user) return res.status(400).send("User already exists");
         else {
           bcrypt.hash("user@123", 10).then((hashPassword) => {
             let newUser = new User({
@@ -139,7 +137,7 @@ export class UserController {
           });
         }
       })
-      .catch((err: any) => res.status(400).json(err));
+      .catch((err: any) => res.status(400).send(err.message));
   }
 
   update(req: Request, res: Response) {
@@ -157,9 +155,7 @@ export class UserController {
           .then((user: any) => res.status(200).json(user))
           .catch((err: any) => res.status(400).json(err));
       } else
-        return res
-          .status(404)
-          .json({ message: `User id:${req.params.id} does not exists` });
+        return res.status(404).send(`User id:${req.params.id} does not exists`);
     });
   }
 
@@ -170,10 +166,7 @@ export class UserController {
           .delete(req.params.id)
           .then((user) => res.status(200).json())
           .catch((err) => res.status(400).json(err));
-      } else
-        res
-          .status(404)
-          .json({ message: `User id:${req.params.id} does not exists` });
+      } else res.status(404).send(`User id:${req.params.id} does not exists`);
     });
   }
 }

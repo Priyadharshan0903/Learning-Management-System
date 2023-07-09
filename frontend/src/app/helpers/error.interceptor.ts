@@ -1,4 +1,4 @@
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import {
   HttpEvent,
   HttpHandler,
@@ -6,11 +6,11 @@ import {
   HttpErrorResponse,
   HttpInterceptor,
   HTTP_INTERCEPTORS,
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { NzNotificationService } from "ng-zorro-antd/notification";
-import { Observable, throwError } from "rxjs";
-import { catchError, retry } from "rxjs/operators";
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -23,21 +23,22 @@ export class ErrorInterceptor implements HttpInterceptor {
       retry(0),
       catchError((error: HttpErrorResponse) => {
         let err = error.error;
+        console.log(error);
         if (!(err instanceof Blob)) {
-          let errorMessage: string = "";
+          let errorMessage: string = '';
           if (error.status == 401) {
-            this.message.warning("Warning", "Invalid Credentials");
+            this.message.warning('Warning', 'Invalid Credentials');
             localStorage.clear();
-            this.router.navigateByUrl("/login");
+            this.router.navigateByUrl('/login');
           }
           if (error.status >= 400 && error.status !== 401) {
             if (err.errors)
               err.errors.map((e: any) => {
-                errorMessage += e.message + "</br>";
+                errorMessage += e.message + '</br>';
               });
             else errorMessage = err;
 
-            this.message.warning("Warning", errorMessage);
+            this.message.warning('Warning', errorMessage);
           }
           return throwError(errorMessage);
         }

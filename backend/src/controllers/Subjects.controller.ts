@@ -32,7 +32,7 @@ export class SubjectController {
     if (subject) {
       return res.status(200).json(subject);
     }
-    return res.status(404).json({ error: "Subject not found" });
+    return res.status(404).send("Subject not found");
   }
 
   // Update a subject.
@@ -45,7 +45,7 @@ export class SubjectController {
       await subject.update({ code, name });
       return res.status(200).json(subject);
     }
-    return res.status(404).json({ error: "Subject not found" });
+    return res.status(404).send("Subject not found");
   }
 
   // Delete a subject.
@@ -56,6 +56,6 @@ export class SubjectController {
       await subject.destroy();
       return res.status(204).json({ message: "Subject deleted" });
     }
-    return res.status(404).json({ error: "Subject not found" });
+    return res.status(404).send("Subject not found");
   }
 }

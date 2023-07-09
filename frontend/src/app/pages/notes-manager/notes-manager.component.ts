@@ -71,27 +71,29 @@ export class NotesManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(`${environment.apiUrl}/departments`).subscribe({
-      next: (data: any) => {
-        this.departments = data;
-        this.filterDepartments = [...this.filterDepartments, ...data];
-      },
-    });
-    this.http.get(`${environment.apiUrl}/subjects`).subscribe({
-      next: (data: any) => {
-        this.subjects = [...this.subjects, ...data];
-      },
-    });
-    this.http.get<Staff[]>(`${environment.apiUrl}/users`).subscribe({
-      next: (data: Staff[]) => {
-        data.forEach((user) => {
-          this.users.push({
-            id: user.id,
-            name: user.name,
+    if (!this.semester) {
+      this.http.get(`${environment.apiUrl}/departments`).subscribe({
+        next: (data: any) => {
+          this.departments = data;
+          this.filterDepartments = [...this.filterDepartments, ...data];
+        },
+      });
+      this.http.get(`${environment.apiUrl}/subjects`).subscribe({
+        next: (data: any) => {
+          this.subjects = [...this.subjects, ...data];
+        },
+      });
+      this.http.get<Staff[]>(`${environment.apiUrl}/users`).subscribe({
+        next: (data: Staff[]) => {
+          data.forEach((user) => {
+            this.users.push({
+              id: user.id,
+              name: user.name,
+            });
           });
-        });
-      },
-    });
+        },
+      });
+    }
   }
 
   getFiles() {

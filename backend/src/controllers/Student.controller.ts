@@ -69,12 +69,12 @@ export class StudentController {
           })
           .catch((err) => {
             t.rollback();
-            return res.status(500).json({ error: err.message });
+            return res.status(500).send(err.message);
           });
       })
       .catch((err) => {
         t.rollback();
-        return res.status(500).json({ error: err.message });
+        return res.status(500).send(err.message);
       });
   }
 
@@ -91,7 +91,7 @@ export class StudentController {
     if (student) {
       return res.status(200).json(student);
     }
-    return res.status(404).json({ error: "Student not found" });
+    return res.status(404).send("Student not found");
   }
 
   // UPDATE students
@@ -104,7 +104,7 @@ export class StudentController {
       await student.update({ name });
       return res.status(200).json(student);
     }
-    return res.status(404).json({ error: "Student not found" });
+    return res.status(404).send("Student not found");
   }
 
   // DELETE students
@@ -115,6 +115,6 @@ export class StudentController {
       await student.destroy();
       return res.status(204).json({ message: "Student deleted" });
     }
-    return res.status(404).json({ error: "Student not found" });
+    return res.status(404).send("Student not found");
   }
 }

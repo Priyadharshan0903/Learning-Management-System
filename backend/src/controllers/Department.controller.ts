@@ -36,7 +36,7 @@ export class DepartmentController {
     if (department) {
       return res.status(200).json(department);
     }
-    return res.status(404).json({ error: "Department not found" });
+    return res.status(404).send("Department not found");
   }
 
   // Update a Department
@@ -48,7 +48,7 @@ export class DepartmentController {
       await department.update({ name });
       return res.status(200).json(department);
     }
-    return res.status(404).json({ error: "Department not found" });
+    return res.status(404).send("Department not found");
   }
 
   // Delete a Department.
@@ -59,6 +59,6 @@ export class DepartmentController {
       await department.destroy();
       return res.status(204).json({ message: "Department deleted" });
     }
-    return res.status(404).json({ error: "Department not found" });
+    return res.status(404).send("Department not found");
   }
 }
